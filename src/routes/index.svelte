@@ -29,9 +29,11 @@
 	);
 </script>
 
-<div>
-	<h1 class="text-3xl py-2">Welcome to Days Until</h1>
-	<p class="mt-4">Enter your target date below and we'll tell you how many days away it is.</p>
+<div class="text-center">
+	<h1 class="text-2xl lg:text-3xl py-2">Welcome to Days Until</h1>
+	<p class="mt-4 max-w-sm mx-auto">
+		Enter your target date below and we'll tell you how many days away it is.
+	</p>
 
 	<div class="lg:flex lg:flex-wrap justify-between items-center mt-12 mx-2 lg:mx-12">
 		<div class="mx-auto w-full lg:w-1/2 text-center">
