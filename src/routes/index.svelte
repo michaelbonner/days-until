@@ -9,16 +9,18 @@
 	$: businessDaysUntilSelectedDate = differenceInBusinessDays(selectedDate, today);
 </script>
 
-<h1 class="font-light text-3xl py-2">Welcome to Days Until</h1>
+<h1 class="text-3xl py-2">Welcome to Days Until</h1>
 <p class="mt-4">Enter your target date below and we'll tell you how many days away it is.</p>
-<p class="mt-4">
-	Today&apos;s date is <code class="bg-gray-100 py-1 px-2 font-sans rounded">
-		{todayFormatted}</code
-	>
-</p>
 
-<div class="mt-8">
-	<input bind:value={selectedDay} class="border py-2 px-4" type="date" />
+<div class="flex justify-between items-center mt-12 mx-2 lg:mx-12">
+	<div class="mx-auto">
+		<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" type="date" />
+	</div>
+	<p class="mx-auto">
+		Today&apos;s date is <code class="bg-gray-100 py-1 px-2 font-sans rounded">
+			{todayFormatted}</code
+		>
+	</p>
 </div>
 
 <div class="grid grid-cols-2 text-center border-t pt-12 mt-12">
