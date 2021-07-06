@@ -10,7 +10,6 @@
 	} from 'date-fns';
 	import queryString, { ParsedQuery } from 'query-string';
 
-	export let holidays;
 	let parsedQueryString = {} as ParsedQuery;
 
 	if (typeof window !== 'undefined') {
