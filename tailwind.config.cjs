@@ -7,9 +7,9 @@ module.exports = {
 			colors: {
 				malibu: {
 					DEFAULT: '#70E1F5',
-					50: '#FFFFFF',
-					100: '#FFFFFF',
-					200: '#FFFFFF',
+					50: '#f3f9fa',
+					100: '#eaf5f8',
+					200: '#e3f9fe',
 					300: '#CFF5FC',
 					400: '#A0EBF8',
 					500: '#70E1F5',
