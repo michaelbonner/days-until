@@ -1,24 +1,18 @@
-# create-svelte
+# Days Until
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+## How it works
 
-## Creating a project
+- Visit [https://days-until.vercel.app/](https://days-until.vercel.app/)
+- Enter your desired date
+- Enjoy
 
-If you're seeing this, you've probably already done this step. Congrats!
+Or if you'd like to link to a specific date
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
+- Visit [https://days-until.vercel.app/?date=2050-01-01](https://days-until.vercel.app/?date=2050-01-01) where 2050-01-01 is the yyyy-MM-dd formatted version of your desired date.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've cloned this project and installed dependencies with `npm install`, start a development server:
 
 ```bash
 npm run dev
@@ -26,13 +20,3 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
