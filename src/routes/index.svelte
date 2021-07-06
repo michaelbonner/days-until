@@ -1,5 +1,11 @@
 <script>
-	import { differenceInBusinessDays, differenceInCalendarDays, format, parse } from 'date-fns';
+	import {
+		differenceInBusinessDays,
+		differenceInCalendarDays,
+		format,
+		isValid,
+		parse
+	} from 'date-fns';
 	import queryString from 'query-string';
 
 	let parsedQueryString = {};
@@ -10,8 +16,11 @@
 
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
-	let selectedDay = parsedQueryString.date || todayFormatted;
+	let selectedDay = parsedQueryString.date || format(new Date(), 'yyyy-MM-dd');
 	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
+	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
+		alert('Make sure you are passing dates as yyyy-MM-dd format');
+	}
 	$: daysUntilSelectedDate = differenceInCalendarDays(selectedDate, today);
 	$: businessDaysUntilSelectedDate = differenceInBusinessDays(selectedDate, today);
 </script>
