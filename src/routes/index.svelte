@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import {
 		addYears,
 		differenceInBusinessDays,
@@ -8,9 +8,10 @@
 		isValid,
 		parse
 	} from 'date-fns';
-	import queryString from 'query-string';
+	import queryString, { ParsedQuery } from 'query-string';
 
-	let parsedQueryString = {};
+	export let holidays;
+	let parsedQueryString = {} as ParsedQuery;
 
 	if (typeof window !== 'undefined') {
 		parsedQueryString = queryString.parse(window.location.search);
@@ -18,7 +19,8 @@
 
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
-	let selectedDay = parsedQueryString.date || format(new Date(), 'yyyy-MM-dd');
+	let selectedDay =
+		(parsedQueryString.date as string) || (format(new Date(), 'yyyy-MM-dd') as string);
 	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
 	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
 		alert('Make sure you are passing dates as yyyy-MM-dd format');
@@ -31,17 +33,24 @@
 		differenceInBusinessDays(selectedDate, today)
 	);
 
+	interface InterestingDate {
+		monthDay: string;
+		name: string;
+		date?: Date;
+		formattedDate?: string;
+	}
+
 	const interestingDates = [
-		{ monthDay: `01-01`, name: `New Year's Day` },
-		{ monthDay: `01-18`, name: `MLK Jr. Day` },
-		{ monthDay: `02-15`, name: `Presidents' Day` },
-		{ monthDay: `05-31`, name: `Memorial Day` },
-		{ monthDay: `06-19`, name: `Juneteenth` },
-		{ monthDay: `07-04`, name: `Independence Day` },
-		{ monthDay: `09-06`, name: `Labor Day` },
-		{ monthDay: `10-11`, name: `Columbus Day` },
-		{ monthDay: `11-11`, name: `Veterans Day` },
-		{ monthDay: `12-25`, name: `Christmas Day` }
+		{ monthDay: `01-01`, name: `New Year's Day` } as InterestingDate,
+		{ monthDay: `01-18`, name: `MLK Jr. Day` } as InterestingDate,
+		{ monthDay: `02-15`, name: `Presidents' Day` } as InterestingDate,
+		{ monthDay: `05-31`, name: `Memorial Day` } as InterestingDate,
+		{ monthDay: `06-19`, name: `Juneteenth` } as InterestingDate,
+		{ monthDay: `07-04`, name: `Independence Day` } as InterestingDate,
+		{ monthDay: `09-06`, name: `Labor Day` } as InterestingDate,
+		{ monthDay: `10-11`, name: `Columbus Day` } as InterestingDate,
+		{ monthDay: `11-11`, name: `Veterans Day` } as InterestingDate,
+		{ monthDay: `12-25`, name: `Christmas Day` } as InterestingDate
 	]
 		.map((interestingDate) => {
 			const parsedDate = parse(
