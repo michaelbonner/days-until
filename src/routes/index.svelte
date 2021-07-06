@@ -21,8 +21,12 @@
 	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
 		alert('Make sure you are passing dates as yyyy-MM-dd format');
 	}
-	$: daysUntilSelectedDate = differenceInCalendarDays(selectedDate, today);
-	$: businessDaysUntilSelectedDate = differenceInBusinessDays(selectedDate, today);
+	$: daysUntilSelectedDate = new Intl.NumberFormat().format(
+		differenceInCalendarDays(selectedDate, today)
+	);
+	$: businessDaysUntilSelectedDate = new Intl.NumberFormat().format(
+		differenceInBusinessDays(selectedDate, today)
+	);
 </script>
 
 <h1 class="text-3xl py-2">Welcome to Days Until</h1>
