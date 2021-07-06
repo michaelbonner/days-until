@@ -5,8 +5,8 @@
 html {
 	@apply bg-gray-100;
 	@apply bg-gradient-to-tl;
-	@apply from-custom-turquoise;
-	@apply to-custom-pink;
+	@apply from-sandy-teal;
+	@apply to-sandy-sand;
 }
 
 .ui-main-wrapper {

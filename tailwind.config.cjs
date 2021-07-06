@@ -5,8 +5,8 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				'custom-turquoise': '#97d9e1',
-				'custom-pink': '#d9afd9'
+				'sandy-teal': '#70e1f5',
+				'sandy-sand': '#ffd194'
 			}
 		}
 	},

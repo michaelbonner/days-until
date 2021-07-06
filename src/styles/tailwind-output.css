@@ -731,9 +731,9 @@ html {
 	--tw-bg-opacity: 1;
 	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 	background-image: linear-gradient(to top left, var(--tw-gradient-stops));
-	--tw-gradient-from: #97d9e1;
-	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(151, 217, 225, 0));
-	--tw-gradient-to: #d9afd9;
+	--tw-gradient-from: #70e1f5;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(112, 225, 245, 0));
+	--tw-gradient-to: #ffd194;
 }
 
 .ui-main-wrapper {
