@@ -1,5 +1,7 @@
 # Days Until
 
+I heard great things about Svelte Kit and wanted to give it a try. Couldn't think of much to do build quick so this is what I came up with.
+
 ## How it works
 
 - Visit [https://days-until.vercel.app/](https://days-until.vercel.app/)
