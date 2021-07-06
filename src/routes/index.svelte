@@ -65,7 +65,7 @@
 	<div class="mt-12 max-w-md mx-auto">
 		<p class="text-center text-sm text-gray-800">
 			FYI: You can also give this page a date in the url. Something like
-			<a class="text-indigo-600 underline" href="https://days-until.vercel.app/?date=2050-01-01"
+			<a class="text-malibu-800 underline" href="https://days-until.vercel.app/?date=2050-01-01"
 				>https://days-until.vercel.app/?date=2050-01-01</a
 			>
 		</p>
