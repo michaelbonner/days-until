@@ -1,10 +1,17 @@
 <script>
-	import { differenceInBusinessDays, differenceInCalendarDays } from 'date-fns';
-	import { format, utcToZonedTime } from 'date-fns-tz';
+	import { differenceInBusinessDays, differenceInCalendarDays, format, parse } from 'date-fns';
+	import queryString from 'query-string';
+
+	let parsedQueryString = {};
+
+	if (typeof window !== 'undefined') {
+		parsedQueryString = queryString.parse(window.location.search);
+	}
+
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
-	let selectedDay = todayFormatted;
-	$: selectedDate = utcToZonedTime(new Date(selectedDay), new Date().getTimezoneOffset());
+	let selectedDay = parsedQueryString.date || todayFormatted;
+	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
 	$: daysUntilSelectedDate = differenceInCalendarDays(selectedDate, today);
 	$: businessDaysUntilSelectedDate = differenceInBusinessDays(selectedDate, today);
 </script>
