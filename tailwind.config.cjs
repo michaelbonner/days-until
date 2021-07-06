@@ -3,7 +3,12 @@ module.exports = {
 	purge: ['./src/**/*.svelte'],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				'custom-turquoise': '#97d9e1',
+				'custom-pink': '#d9afd9'
+			}
+		}
 	},
 	variants: {
 		extend: {}
