@@ -49,7 +49,9 @@
 		{ monthDay: `09-06`, name: `Labor Day` } as InterestingDate,
 		{ monthDay: `10-11`, name: `Columbus Day` } as InterestingDate,
 		{ monthDay: `11-11`, name: `Veterans Day` } as InterestingDate,
-		{ monthDay: `12-25`, name: `Christmas Day` } as InterestingDate
+		{ monthDay: `12-24`, name: `Christmas Eve` } as InterestingDate,
+		{ monthDay: `12-25`, name: `Christmas Day` } as InterestingDate,
+		{ monthDay: `12-31`, name: `New Years Eve` } as InterestingDate
 	]
 		.map((interestingDate) => {
 			const parsedDate = parse(
@@ -67,7 +69,7 @@
 </script>
 
 <div class="text-center">
-	<h1 class="text-2xl lg:text-3xl py-2">Days Until</h1>
+	<h1 class="text-3xl py-2">Days Until</h1>
 	<p class="mt-4 max-w-sm mx-auto">
 		Enter your target date below and the display below will tell you how many days away your date
 		is. That&apos;s all there is it
@@ -101,10 +103,11 @@
 
 	<div class="mt-12">
 		<h2 class="text-2xl">Interesting Dates</h2>
-		<div class="sm:grid sm:grid-cols-4 mt-4 gap-x-2 gap-y-2">
+		<div class="sm:grid sm:grid-cols-3 mt-4 gap-x-2 gap-y-2">
 			{#each interestingDates as interestingDate}
 				<button
-					class="rounded border border-gray-400 py-1 px-2 text-xs bg-gray-50 hover:bg-gray-100 transition-all"
+					class="rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all bg-malibu-200 hover:bg-pizazz-100 text-malibu-900 hover:text-pizazz-700 border-malibu-300 hover:border-pizazz-300
+					"
 					on:click={() => (selectedDay = interestingDate.formattedDate)}
 				>
 					<span class="font-light block">{format(interestingDate.date, 'MM/dd/yyyy')}</span>

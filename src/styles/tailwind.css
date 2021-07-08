@@ -6,10 +6,5 @@ html {
 	@apply bg-gray-100;
 	@apply bg-gradient-to-tl;
 	@apply from-malibu-500;
-	@apply to-peach-orange-500;
-}
-
-.ui-main-wrapper {
-	height: 100vh;
-	height: calc(var(--vh, 1vh) * 100);
+	@apply to-pizazz-200;
 }
