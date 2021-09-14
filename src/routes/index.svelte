@@ -49,7 +49,7 @@
 		{ monthDay: `09-06`, name: `Labor Day` } as InterestingDate,
 		{ monthDay: `10-11`, name: `Columbus Day` } as InterestingDate,
 		{ monthDay: `11-11`, name: `Veterans Day` } as InterestingDate,
-		{ monthDay: `12-24`, name: `Christmas Eve` } as InterestingDate,
+		{ monthDay: `11-20`, name: `Ski Season` } as InterestingDate,
 		{ monthDay: `12-25`, name: `Christmas Day` } as InterestingDate,
 		{ monthDay: `12-31`, name: `New Years Eve` } as InterestingDate
 	]
