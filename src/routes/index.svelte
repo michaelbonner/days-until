@@ -8,7 +8,8 @@
 		isValid,
 		parse
 	} from 'date-fns';
-	import queryString, { ParsedQuery } from 'query-string';
+	import queryString from 'query-string';
+	import type { ParsedQuery } from 'query-string';
 
 	let parsedQueryString = {} as ParsedQuery;
 
