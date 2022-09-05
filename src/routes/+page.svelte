@@ -1,15 +1,20 @@
 <script lang="ts">
+	import { getInterestingDateByMonthDayString } from '$lib/getInterestingDateByMonthDayString';
+	import { getNextColumbusDay } from '$lib/getNextColumbusDay';
+	import { getNextLaborDay } from '$lib/getNextLaborDay';
+	import { getNextMemorialDay } from '$lib/getNextMemorialDay';
+	import { getNextMlkDay } from '$lib/getNextMlkDay';
+	import { getNextPresidentsDay } from '$lib/getNextPresidentsDay';
+	import { getNextThanksgiving } from '$lib/getNextThanksgiving';
 	import {
-		addYears,
 		differenceInBusinessDays,
 		differenceInCalendarDays,
 		format,
-		isFuture,
 		isValid,
 		parse
 	} from 'date-fns';
-	import queryString from 'query-string';
 	import type { ParsedQuery } from 'query-string';
+	import queryString from 'query-string';
 
 	let parsedQueryString = {} as ParsedQuery;
 
@@ -33,40 +38,24 @@
 		differenceInBusinessDays(selectedDate, today)
 	);
 
-	interface InterestingDate {
-		monthDay: string;
-		name: string;
-		date?: Date;
-		formattedDate?: string;
-	}
-
 	const interestingDates = [
-		{ monthDay: `01-01`, name: `New Year's Day` } as InterestingDate,
-		{ monthDay: `01-18`, name: `MLK Jr. Day` } as InterestingDate,
-		{ monthDay: `02-15`, name: `Presidents' Day` } as InterestingDate,
-		{ monthDay: `05-31`, name: `Memorial Day` } as InterestingDate,
-		{ monthDay: `06-19`, name: `Juneteenth` } as InterestingDate,
-		{ monthDay: `07-04`, name: `Independence Day` } as InterestingDate,
-		{ monthDay: `09-06`, name: `Labor Day` } as InterestingDate,
-		{ monthDay: `10-11`, name: `Columbus Day` } as InterestingDate,
-		{ monthDay: `11-11`, name: `Veterans Day` } as InterestingDate,
-		{ monthDay: `11-20`, name: `Ski Season` } as InterestingDate,
-		{ monthDay: `12-25`, name: `Christmas Day` } as InterestingDate,
-		{ monthDay: `12-31`, name: `New Years Eve` } as InterestingDate
-	]
-		.map((interestingDate) => {
-			const parsedDate = parse(
-				`${new Date().getFullYear()}-${interestingDate.monthDay}`,
-				'yyyy-MM-dd',
-				new Date()
-			);
-			interestingDate.date = isFuture(parsedDate) ? parsedDate : addYears(parsedDate, 1);
-			interestingDate.formattedDate = format(interestingDate.date, 'yyyy-MM-dd');
-			return interestingDate;
-		})
-		.sort((a, b) => {
-			return a.date > b.date ? 1 : -1;
-		});
+		getInterestingDateByMonthDayString('01-01', "New Year's Day"),
+		getInterestingDateByMonthDayString(`06-19`, `Juneteenth`),
+		getInterestingDateByMonthDayString(`07-04`, `Independence Day`),
+		getInterestingDateByMonthDayString(`07-24`, `Pioneer Day`),
+		getInterestingDateByMonthDayString(`11-11`, `Veterans Day`),
+		getInterestingDateByMonthDayString(`11-20`, `Ski Season`),
+		getInterestingDateByMonthDayString(`12-25`, `Christmas Day`),
+		getInterestingDateByMonthDayString(`12-31`, `New Years Eve`),
+		getNextPresidentsDay(),
+		getNextThanksgiving(),
+		getNextColumbusDay(),
+		getNextLaborDay(),
+		getNextMemorialDay(),
+		getNextMlkDay()
+	].sort((a, b) => {
+		return a.date > b.date ? 1 : -1;
+	});
 </script>
 
 <div class="text-center">
