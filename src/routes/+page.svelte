@@ -44,7 +44,7 @@
 		getInterestingDateByMonthDayString(`07-04`, `Independence Day`),
 		getInterestingDateByMonthDayString(`07-24`, `Pioneer Day`),
 		getInterestingDateByMonthDayString(`11-11`, `Veterans Day`),
-		getInterestingDateByMonthDayString(`11-20`, `Ski Season-ish`),
+		getInterestingDateByMonthDayString(`11-18`, `Ski Season-ish`),
 		getInterestingDateByMonthDayString(`12-25`, `Christmas Day`),
 		getInterestingDateByMonthDayString(`12-31`, `New Years Eve`),
 		getNextPresidentsDay(),
