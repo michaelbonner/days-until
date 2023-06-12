@@ -37,7 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-vercel": "^2.0.2",
+		"@sveltejs/adapter-vercel": "^3.0.1",
 		"date-fns": "^2.29.3",
 		"date-fns-tz": "^2.0.0",
 		"query-string": "^8.1.0"
