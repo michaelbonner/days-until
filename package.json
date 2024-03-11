@@ -39,7 +39,6 @@
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^5.1.0",
 		"date-fns": "^3.0.6",
-		"date-fns-tz": "^2.0.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"query-string": "^8.1.0"
 	}
