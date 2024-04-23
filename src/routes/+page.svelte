@@ -10,6 +10,7 @@
 		differenceInBusinessDays,
 		differenceInCalendarDays,
 		format,
+		isSameDay,
 		isValid,
 		parse
 	} from 'date-fns';
@@ -21,22 +22,6 @@
 	if (typeof window !== 'undefined') {
 		parsedQueryString = queryString.parse(window.location.search);
 	}
-
-	const today = new Date();
-	const todayFormatted = format(today, 'MM/dd/yyyy');
-	let selectedDay =
-		(parsedQueryString.date as string) || (format(new Date(), 'yyyy-MM-dd') as string);
-	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
-	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
-		alert('Make sure you are passing dates as yyyy-MM-dd format');
-	}
-	$: selectedDateFormatted = format(selectedDate, 'MM/dd/yyyy');
-	$: daysUntilSelectedDate = new Intl.NumberFormat().format(
-		differenceInCalendarDays(selectedDate, today)
-	);
-	$: businessDaysUntilSelectedDate = new Intl.NumberFormat().format(
-		differenceInBusinessDays(selectedDate, today)
-	);
 
 	const interestingDates = [
 		getInterestingDateByMonthDayString('01-01', "New Year's Day"),
@@ -56,10 +41,29 @@
 	].sort((a, b) => {
 		return a.date > b.date ? 1 : -1;
 	});
+
+	const today = new Date();
+	const todayFormatted = format(today, 'MM/dd/yyyy');
+	let selectedDay =
+		(parsedQueryString.date as string) ||
+		(format(interestingDates[0].date, 'yyyy-MM-dd') as string);
+	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
+	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
+		alert('Make sure you are passing dates as yyyy-MM-dd format');
+	}
+	$: selectedDateFormatted = format(selectedDate, 'MM/dd/yyyy');
+	$: daysUntilSelectedDate = new Intl.NumberFormat().format(
+		differenceInCalendarDays(selectedDate, today)
+	);
+	$: businessDaysUntilSelectedDate = new Intl.NumberFormat().format(
+		differenceInBusinessDays(selectedDate, today)
+	);
+
+	$: selectedInterestingDate = interestingDates.find((date) => isSameDay(date.date, selectedDate));
 </script>
 
 <svelte:head>
-	<title>Days Until</title>
+	<title>Days Until{` ${selectedDateFormatted}`}</title>
 	<meta
 		name="description"
 		content={`Find out how many days until ${selectedDateFormatted || 'a specific date'}`}
@@ -88,7 +92,10 @@
 		<div>
 			<div class="text-4xl">{daysUntilSelectedDate}</div>
 			<div class="text-lg">Days Until</div>
-			<div class="text-sm">{selectedDateFormatted}</div>
+			<div class="text-sm">
+				{selectedDateFormatted}
+				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
+			</div>
 		</div>
 		<div class="mt-4 lg:mt-0">
 			<div class="text-4xl">
@@ -104,8 +111,11 @@
 		<div class="sm:grid sm:grid-cols-3 mt-4 gap-x-2 gap-y-2">
 			{#each interestingDates as interestingDate}
 				<button
-					class="rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all bg-malibu-200 hover:bg-pizazz-100 text-malibu-900 hover:text-pizazz-700 border-malibu-300 hover:border-pizazz-300
-					"
+					class={`rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
+						selectedInterestingDate === interestingDate
+							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
+							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
+					}`}
 					on:click={() => (selectedDay = interestingDate.formattedDate)}
 				>
 					<span class="font-light block">{format(interestingDate.date, 'MM/dd/yyyy')}</span>
