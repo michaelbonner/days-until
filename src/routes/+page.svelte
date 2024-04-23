@@ -63,10 +63,12 @@
 </script>
 
 <svelte:head>
-	<title>Days Until{` ${selectedDateFormatted}`}</title>
+	<title
+		>Days Until {`${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}</title
+	>
 	<meta
 		name="description"
-		content={`Find out how many days until ${selectedDateFormatted || 'a specific date'}`}
+		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}`}
 	/>
 </svelte:head>
 
