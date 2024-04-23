@@ -58,6 +58,14 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Days Until</title>
+	<meta
+		name="description"
+		content={`Find out how many days until ${selectedDateFormatted || 'a specific date'}`}
+	/>
+</svelte:head>
+
 <div class="text-center">
 	<h1 class="text-3xl py-2">Days Until</h1>
 	<p class="mt-4 max-w-sm mx-auto">
