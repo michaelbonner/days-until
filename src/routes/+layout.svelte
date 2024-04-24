@@ -8,4 +8,11 @@
 	>
 		<slot />
 	</div>
+
+	<div>
+		<p class="text-center mt-12 text-sm text-gray-800 pb-8">
+			&copy;{new Date().getFullYear()}
+			<a class="underline" href="https://michaelbonner.dev"> Michael Bonner </a>
+		</p>
+	</div>
 </div>
