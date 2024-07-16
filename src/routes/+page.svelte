@@ -83,7 +83,12 @@
 		<div class="mx-auto w-full lg:w-1/2 text-center grid gap-2">
 			<div class="grid gap-1">
 				<label for="date" class="block text-sm font-medium">Date</label>
-				<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" id="date" type="date" />
+				<input
+					bind:value={selectedDay}
+					class="mx-auto border py-2 px-4 bg-gray-50 appearance-none"
+					id="date"
+					type="date"
+				/>
 			</div>
 
 			<div class="flex justify-center">
@@ -122,7 +127,7 @@
 		</div>
 		<div class="mx-auto w-full lg:w-1/2 text-center mt-8 lg:mt-0">
 			<p>Today&apos;s date is</p>
-			<code class="inline-block bg-gray-100 py-1 px-2 font-sans rounded mt-1">
+			<code class="inline-block border border-dashed py-2 px-3 font-sans rounded mt-1">
 				{todayFormatted}
 			</code>
 		</div>
