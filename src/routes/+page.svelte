@@ -73,6 +73,19 @@
 		rel="canonical"
 		href={`https://days-until.michaelbonner.dev/${queryStringDate ? `?date=${queryStringDate}` : ''}`}
 	/>
+
+	<meta
+		property="og:url"
+		content={`https://days-until.michaelbonner.dev/${queryStringDate ? `?date=${queryStringDate}` : ''}`}
+	/>
+	<meta
+		property="og:title"
+		content={`Days Until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}
+	/>
+	<meta
+		property="og:description"
+		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}`}
+	/>
 </svelte:head>
 
 <div class="text-center">
