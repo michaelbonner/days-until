@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { getInterestingDateByMonthDayString } from '$lib/getInterestingDateByMonthDayString';
 	import { getNextColumbusDay } from '$lib/getNextColumbusDay';
 	import { getNextLaborDay } from '$lib/getNextLaborDay';
@@ -14,16 +15,10 @@
 		isValid,
 		parse
 	} from 'date-fns';
-	import type { ParsedQuery } from 'query-string';
-	import queryString from 'query-string';
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	let parsedQueryString = {} as ParsedQuery;
-
-	if (typeof window !== 'undefined') {
-		parsedQueryString = queryString.parse(window.location.search);
-	}
+	const queryStringDate = $page.url.searchParams.get('date');
 
 	const interestingDates = [
 		getInterestingDateByMonthDayString('01-01', "New Year's Day"),
@@ -50,8 +45,7 @@
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
 	let selectedDay =
-		(parsedQueryString.date as string) ||
-		(format(interestingDates[0].date, 'yyyy-MM-dd') as string);
+		(queryStringDate as string) || (format(interestingDates[0].date, 'yyyy-MM-dd') as string);
 	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
 	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
 		alert('Make sure you are passing dates as yyyy-MM-dd format');
