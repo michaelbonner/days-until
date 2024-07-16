@@ -97,8 +97,9 @@
 
 	<div class="lg:flex lg:flex-wrap justify-between items-center mt-12 mx-2 lg:mx-12">
 		<div class="mx-auto w-full lg:w-1/2 text-center grid gap-2">
-			<div>
-				<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" type="date" />
+			<div class="grid gap-1">
+				<label for="date" class="block text-sm font-medium">Date</label>
+				<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" id="date" type="date" />
 			</div>
 
 			<div class="flex justify-center">
@@ -135,7 +136,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="mx-auto w-full lg:w-1/2 text-center mt-4 lg:mt-0">
+		<div class="mx-auto w-full lg:w-1/2 text-center mt-8 lg:mt-0">
 			<p>Today&apos;s date is</p>
 			<code class="inline-block bg-gray-100 py-1 px-2 font-sans rounded mt-1">
 				{todayFormatted}
@@ -143,7 +144,7 @@
 		</div>
 	</div>
 
-	<div class="lg:grid grid-cols-2 text-center pt-12 mt-8">
+	<div class="lg:grid grid-cols-2 text-center sm:pt-12 mt-8">
 		<div>
 			<div class="text-4xl">{daysUntilSelectedDate}</div>
 			<div class="text-lg">Days Until</div>
@@ -193,10 +194,10 @@
 
 	{#if toastVisible}
 		<div
-			class="fixed bottom-0 left-0 text-left"
+			class="fixed bottom-1 sm:bottom-0 left-0 text-left"
 			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 		>
-			<div class="bg-white shadow sm:rounded-lg mb-4 ml-4">
+			<div class="bg-white shadow sm:rounded-lg mx-1 sm:mb-4 sm:ml-4">
 				<div class="p-3 sm:p-4">
 					<div class="flex items-start justify-between gap-4">
 						<h3 class="text-sm font-semibold leading-6 text-gray-900">Link copied</h3>
