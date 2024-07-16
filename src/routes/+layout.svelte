@@ -2,9 +2,9 @@
 	import '../styles/tailwind-output.css';
 </script>
 
-<div class="ui-main-wrapper lg:min-h-screen flex flex-col justify-center items-center px-8 lg:px-0">
+<div class="ui-main-wrapper lg:min-h-screen flex flex-col justify-center items-center px-4 lg:px-0">
 	<div
-		class="mx-6 lg:mx-auto my-12 px-8 py-4 lg:px-8 lg:py-8 bg-white w-full max-w-2xl rounded-sm shadow-lg"
+		class="mx-6 lg:mx-auto my-4 px-8 py-4 lg:px-12 lg:py-8 xl:px-24 xl:py-12 bg-white w-full max-w-3xl rounded-sm shadow-lg"
 	>
 		<slot />
 	</div>

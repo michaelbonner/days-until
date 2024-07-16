@@ -79,7 +79,7 @@
 </svelte:head>
 
 <div class="text-center">
-	<h1 class="text-3xl py-2">Days Until</h1>
+	<h1 class="text-3xl lg:text-5xl py-2 font-black">Days Until</h1>
 	<p class="mt-4 max-w-sm mx-auto">
 		Enter your target date below and the display below will tell you how many days away your date
 		is. That&apos;s all there is it
@@ -156,7 +156,7 @@
 		<div class="sm:grid sm:grid-cols-3 mt-4 gap-x-2 gap-y-2">
 			{#each interestingDates as interestingDate}
 				<button
-					class={`rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
+					class={`m-0.5 sm:m-0 rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
 						selectedInterestingDate === interestingDate
 							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
 							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
