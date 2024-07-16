@@ -1,12 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getInterestingDateByMonthDayString } from '$lib/getInterestingDateByMonthDayString';
-	import { getNextColumbusDay } from '$lib/getNextColumbusDay';
-	import { getNextLaborDay } from '$lib/getNextLaborDay';
-	import { getNextMemorialDay } from '$lib/getNextMemorialDay';
-	import { getNextMlkDay } from '$lib/getNextMlkDay';
-	import { getNextPresidentsDay } from '$lib/getNextPresidentsDay';
-	import { getNextThanksgiving } from '$lib/getNextThanksgiving';
+	import { getInterestingDates } from '$lib/getInterestingDates';
 	import {
 		differenceInBusinessDays,
 		differenceInCalendarDays,
@@ -20,24 +14,7 @@
 
 	const queryStringDate = $page.url.searchParams.get('date');
 
-	const interestingDates = [
-		getInterestingDateByMonthDayString('01-01', "New Year's Day"),
-		getInterestingDateByMonthDayString(`06-19`, `Juneteenth`),
-		getInterestingDateByMonthDayString(`07-04`, `Independence Day`),
-		getInterestingDateByMonthDayString(`07-24`, `Pioneer Day`),
-		getInterestingDateByMonthDayString(`11-11`, `Veterans Day`),
-		getInterestingDateByMonthDayString(`11-18`, `Ski Season-ish`),
-		getInterestingDateByMonthDayString(`12-25`, `Christmas Day`),
-		getInterestingDateByMonthDayString(`12-31`, `New Years Eve`),
-		getNextPresidentsDay(),
-		getNextThanksgiving(),
-		getNextColumbusDay(),
-		getNextLaborDay(),
-		getNextMemorialDay(),
-		getNextMlkDay()
-	].sort((a, b) => {
-		return a.date > b.date ? 1 : -1;
-	});
+	const interestingDates = getInterestingDates();
 
 	let toastVisible = false;
 	let toastTimeout: any;
@@ -86,6 +63,13 @@
 		property="og:description"
 		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
 	/>
+	<meta
+		property="og:image"
+		content={`https://days-until.michaelbonner.dev/og${queryStringDate ? `?date=${queryStringDate}` : ''}`}
+	/>
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <div class="text-center">
