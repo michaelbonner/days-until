@@ -16,6 +16,8 @@
 	} from 'date-fns';
 	import type { ParsedQuery } from 'query-string';
 	import queryString from 'query-string';
+	import { quintOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
 
 	let parsedQueryString = {} as ParsedQuery;
 
@@ -41,6 +43,9 @@
 	].sort((a, b) => {
 		return a.date > b.date ? 1 : -1;
 	});
+
+	let toastVisible = false;
+	let toastTimeout: any;
 
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
@@ -81,14 +86,51 @@
 	</p>
 
 	<div class="lg:flex lg:flex-wrap justify-between items-center mt-12 mx-2 lg:mx-12">
-		<div class="mx-auto w-full lg:w-1/2 text-center">
-			<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" type="date" />
+		<div class="mx-auto w-full lg:w-1/2 text-center grid gap-2">
+			<div>
+				<input bind:value={selectedDay} class="border py-2 px-4 bg-gray-50" type="date" />
+			</div>
+
+			<div class="flex justify-center">
+				<button
+					class="flex gap-1 items-center justify-center hover:underline text-sm"
+					on:click={() => {
+						const url = new URL(window.location.href);
+						url.searchParams.set('date', selectedDay);
+						navigator.clipboard.writeText(url.toString());
+						toastVisible = true;
+
+						toastTimeout = setTimeout(() => {
+							toastVisible = false;
+						}, 3000);
+					}}
+				>
+					<svg
+						class="w-4 h-4"
+						stroke="currentColor"
+						fill="none"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						aria-hidden="true"
+						height="200px"
+						width="200px"
+						xmlns="http://www.w3.org/2000/svg"
+						><path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+						></path></svg
+					>
+					Copy link
+				</button>
+			</div>
 		</div>
-		<p class="mx-auto w-full lg:w-1/2 text-center mt-4 lg:mt-0">
-			Today&apos;s date is <code class="bg-gray-100 py-1 px-2 font-sans rounded">
-				{todayFormatted}</code
-			>
-		</p>
+		<div class="mx-auto w-full lg:w-1/2 text-center mt-4 lg:mt-0">
+			<p>Today&apos;s date is</p>
+			<code class="inline-block bg-gray-100 py-1 px-2 font-sans rounded mt-1">
+				{todayFormatted}
+			</code>
+		</div>
 	</div>
 
 	<div class="lg:grid grid-cols-2 text-center pt-12 mt-8">
@@ -138,4 +180,32 @@
 			>
 		</p>
 	</div>
+
+	{#if toastVisible}
+		<div
+			class="fixed bottom-0 left-0 text-left"
+			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
+		>
+			<div class="bg-white shadow sm:rounded-lg mb-4 ml-4">
+				<div class="p-3 sm:p-4">
+					<div class="flex items-start justify-between gap-4">
+						<h3 class="text-sm font-semibold leading-6 text-gray-900">Link copied</h3>
+						<button
+							on:click={() => {
+								toastVisible = false;
+								clearTimeout(toastTimeout);
+							}}
+							class="relative -top-2 -right-4 text-base text-gray-500 hover:text-gray-700 py-1 px-4"
+						>
+							x
+						</button>
+					</div>
+					<div class="max-w-xl text-sm text-gray-500">
+						<p>A link to this date has been copied to your clipboard.</p>
+						<p>Share it with your friends</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>
