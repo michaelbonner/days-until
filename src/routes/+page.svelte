@@ -69,7 +69,10 @@
 		name="description"
 		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}`}
 	/>
-	<link rel="canonical" href="https://days-until.michaelbonner.dev/" />
+	<link
+		rel="canonical"
+		href={`https://days-until.michaelbonner.dev/${queryStringDate ? `?date=${queryStringDate}` : ''}`}
+	/>
 </svelte:head>
 
 <div class="text-center">
