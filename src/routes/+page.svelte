@@ -67,7 +67,7 @@
 	>
 	<meta
 		name="description"
-		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}`}
+		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
 	/>
 	<link
 		rel="canonical"
@@ -84,7 +84,7 @@
 	/>
 	<meta
 		property="og:description"
-		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}`}
+		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
 	/>
 </svelte:head>
 
