@@ -44,7 +44,8 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		<div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-around p-8">
 		  <h2 tw="flex flex-col text-5xl font-bold tracking-tight text-gray-900 items-center">
 			<span tx="font-bold">Days Until</span>
-			<span tw="mt-2 text-gray-800 text-4xl font-normal">${dateIsInterestingDate ? dateIsInterestingDate.name : format(dateForSearchParam, displayDateFormatString)}</span>
+			${dateIsInterestingDate ? `<span tw="mt-2 text-gray-800 text-4xl font-normal">${dateIsInterestingDate.name} </span>` : ''}
+			<span tw="mt-2 text-gray-800 text-3xl font-normal">${format(dateForSearchParam, displayDateFormatString)}</span>
 		  </h2>
 		  <h3 tw="flex text-7xl font-bold tracking-tight text-gray-900 items-center">
 			<span tx="font-black">${daysUntil}</span>
