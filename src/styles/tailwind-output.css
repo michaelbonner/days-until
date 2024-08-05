@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.4 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.7 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -519,9 +519,6 @@ video {
 .left-0 {
   left: 0px;
 }
-.m-0 {
-  margin: 0px;
-}
 .m-0\.5 {
   margin: 0.125rem;
 }
@@ -649,10 +646,6 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(255 187 97 / var(--tw-border-opacity));
 }
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -671,10 +664,6 @@ video {
 }
 .p-3 {
   padding: 0.75rem;
-}
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 .px-3 {
   padding-left: 0.75rem;
@@ -758,9 +747,6 @@ video {
 .leading-6 {
   line-height: 1.5rem;
 }
-.leading-tight {
-  line-height: 1.25;
-}
 .tracking-wider {
   letter-spacing: 0.05em;
 }
@@ -787,10 +773,6 @@ video {
 .text-pizazz-800 {
   --tw-text-opacity: 1;
   color: rgb(97 55 0 / var(--tw-text-opacity));
-}
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 .underline {
   text-decoration-line: underline;
@@ -843,21 +825,6 @@ html {
 
 .hover\:underline:hover {
   text-decoration-line: underline;
-}
-
-.focus\:border-malibu-500:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(112 225 245 / var(--tw-border-opacity));
-}
-
-.focus\:bg-white:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
 }
 
 @media (min-width: 640px) {
