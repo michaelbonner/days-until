@@ -73,19 +73,19 @@
 </svelte:head>
 
 <div class="text-center">
-	<h1 class="text-3xl lg:text-5xl py-2 font-black">Days Until</h1>
-	<p class="mt-4 max-w-sm mx-auto">
+	<h1 class="py-2 text-3xl font-black lg:text-5xl">Days Until</h1>
+	<p class="mx-auto mt-4 max-w-sm">
 		Enter your target date below and the display below will tell you how many days away your date
 		is. That&apos;s all there is it
 	</p>
 
-	<div class="lg:flex lg:flex-wrap justify-between items-center mt-12 mx-2 lg:mx-12">
-		<div class="mx-auto w-full lg:w-1/2 text-center grid gap-2">
+	<div class="justify-between items-center mx-2 mt-12 lg:flex lg:flex-wrap lg:mx-12">
+		<div class="grid gap-2 mx-auto w-full text-center lg:w-1/2">
 			<div class="grid gap-1">
 				<label for="date" class="block text-sm font-medium">Date</label>
 				<input
 					bind:value={selectedDay}
-					class="mx-auto border py-2 px-4 bg-gray-50 appearance-none"
+					class="py-2 px-4 mx-auto bg-gray-50 border appearance-none"
 					id="date"
 					type="date"
 				/>
@@ -93,7 +93,7 @@
 
 			<div class="flex justify-center">
 				<button
-					class="flex gap-1 items-center justify-center hover:underline text-sm"
+					class="flex gap-1 justify-center items-center text-sm hover:underline"
 					on:click={() => {
 						const url = new URL(window.location.href);
 						url.searchParams.set('date', selectedDay);
@@ -125,15 +125,15 @@
 				</button>
 			</div>
 		</div>
-		<div class="mx-auto w-full lg:w-1/2 text-center mt-8 lg:mt-0">
+		<div class="mx-auto mt-8 w-full text-center lg:mt-0 lg:w-1/2">
 			<p>Today&apos;s date is</p>
-			<code class="inline-block border border-dashed py-2 px-3 font-sans rounded mt-1">
+			<code class="inline-block py-2 px-3 mt-1 font-sans rounded border border-dashed">
 				{todayFormatted}
 			</code>
 		</div>
 	</div>
 
-	<div class="lg:grid grid-cols-2 text-center sm:pt-12 mt-8">
+	<div class="grid-cols-2 mt-8 text-center sm:pt-12 lg:grid">
 		<div>
 			<div class="text-4xl">{daysUntilSelectedDate}</div>
 			<div class="text-lg">Days Until</div>
@@ -153,7 +153,7 @@
 
 	<div class="mt-12">
 		<h2 class="text-2xl">Interesting Dates</h2>
-		<div class="sm:grid sm:grid-cols-3 mt-4 gap-x-2 gap-y-2">
+		<div class="gap-x-2 gap-y-2 mt-4 sm:grid sm:grid-cols-3">
 			{#each interestingDates as interestingDate}
 				<button
 					class={`m-0.5 sm:m-0 rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
@@ -163,18 +163,18 @@
 					}`}
 					on:click={() => (selectedDay = interestingDate.formattedDate)}
 				>
-					<span class="font-light block">{format(interestingDate.date, 'MM/dd/yyyy')}</span>
-					<span class="font-medium block">{interestingDate.name}</span>
+					<span class="block font-light">{format(interestingDate.date, 'MM/dd/yyyy')}</span>
+					<span class="block font-medium">{interestingDate.name}</span>
 				</button>
 			{/each}
 		</div>
 	</div>
 
-	<div class="mt-12 max-w-md mx-auto">
-		<p class="text-center text-sm text-gray-800">
+	<div class="mx-auto mt-12 max-w-md">
+		<p class="text-sm text-center text-gray-800">
 			FYI: You can also give this page a date in the url. Something like
 			<a
-				class="text-malibu-800 underline"
+				class="underline text-malibu-800"
 				href="https://days-until.michaelbonner.dev/?date=2050-01-01"
 				>https://days-until.michaelbonner.dev/?date=2050-01-01</a
 			>
@@ -183,19 +183,19 @@
 
 	{#if toastVisible}
 		<div
-			class="fixed bottom-1 sm:bottom-0 left-0 text-left"
+			class="fixed left-0 bottom-1 text-left sm:bottom-0"
 			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 		>
-			<div class="bg-white shadow sm:rounded-lg mx-1 sm:mb-4 sm:ml-4">
+			<div class="mx-1 bg-white shadow sm:mb-4 sm:ml-4 sm:rounded-lg">
 				<div class="p-3 sm:p-4">
-					<div class="flex items-start justify-between gap-4">
+					<div class="flex gap-4 justify-between items-start">
 						<h3 class="text-sm font-semibold leading-6 text-gray-900">Link copied</h3>
 						<button
 							on:click={() => {
 								toastVisible = false;
 								clearTimeout(toastTimeout);
 							}}
-							class="relative -top-2 -right-4 text-base text-gray-500 hover:text-gray-700 py-1 px-4"
+							class="relative -top-2 -right-4 py-1 px-4 text-base text-gray-500 hover:text-gray-700"
 						>
 							x
 						</button>
