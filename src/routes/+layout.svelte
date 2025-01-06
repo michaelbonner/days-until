@@ -11,7 +11,7 @@
 
 	<div>
 		<p class="pb-8 mt-12 text-sm text-center text-gray-800">
-			&copy;{new Date().getFullYear()}
+			&copy;2021-{new Date().getFullYear()}
 			<a class="underline" href="https://michaelbonner.dev"> Michael Bonner </a>
 		</p>
 	</div>
