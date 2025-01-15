@@ -81,7 +81,7 @@
 		<span>
 			Days {sinceOrUntil}
 		</span>
-		<span class="text-slate-600 font-bold">
+		<span class="text-slate-600 font-bold text-2xl lg:text-4xl">
 			{#if selectedInterestingDate}
 				{selectedInterestingDate.name}
 			{:else}
@@ -89,12 +89,33 @@
 			{/if}
 		</span>
 	</h1>
-	<p class="mx-auto mt-4 max-w-sm">
+	<p class="prose mx-auto mt-4 max-w-lg">
 		Enter your target date below and the display below will tell you how many days away your date
-		is. That&apos;s all there is it
+		is. That&apos;s all there is to it.
 	</p>
 
-	<div class="justify-between items-center mx-2 mt-12 lg:flex lg:flex-wrap lg:mx-12">
+	<div class="grid-cols-2 text-center pt-8 sm:pt-12 grid gap-2 max-w-md mx-auto">
+		<div>
+			<div class="text-4xl">{absoluteValueOfDaysUntil}</div>
+			<div class="text-lg">Days {sinceOrUntil}</div>
+			<div class="text-sm">
+				{selectedDateFormatted}
+				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
+			</div>
+		</div>
+		<div>
+			<div class="text-4xl">
+				{absoluteValueOfBusinessDaysUntil}
+			</div>
+			<div class="text-lg">Business Days {sinceOrUntil}</div>
+			<div class="text-sm">
+				{selectedDateFormatted}
+				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
+			</div>
+		</div>
+	</div>
+
+	<div class="justify-between items-center mt-24 lg:mt-16 flex lg:flex-wrap max-w-md mx-auto">
 		<div class="grid gap-2 mx-auto w-full text-center lg:w-1/2">
 			<div class="grid gap-1">
 				<label for="date" class="block text-sm font-medium">Date</label>
@@ -141,28 +162,7 @@
 			</div>
 		</div>
 		<div class="mx-auto mt-8 w-full text-center lg:mt-0 lg:w-1/2">
-			<p>Today&apos;s date is</p>
-			<code class="inline-block py-2 px-3 mt-1 font-sans rounded border border-dashed">
-				{todayFormatted}
-			</code>
-		</div>
-	</div>
-
-	<div class="grid-cols-2 mt-8 text-center sm:pt-12 lg:grid">
-		<div>
-			<div class="text-4xl">{absoluteValueOfDaysUntil}</div>
-			<div class="text-lg">Days {sinceOrUntil}</div>
-			<div class="text-sm">
-				{selectedDateFormatted}
-				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
-			</div>
-		</div>
-		<div class="mt-4 lg:mt-0">
-			<div class="text-4xl">
-				{absoluteValueOfBusinessDaysUntil}
-			</div>
-			<div class="text-lg">Business Days {sinceOrUntil}</div>
-			<div class="text-sm">{selectedDateFormatted}</div>
+			<p>Today&apos;s date is<br />{todayFormatted}</p>
 		</div>
 	</div>
 
@@ -185,7 +185,7 @@
 		</div>
 	</div>
 
-	<div class="mx-auto mt-12 max-w-md">
+	<div class="mx-auto mt-12 max-w-md prose">
 		<p class="text-sm text-center text-slate-800">
 			FYI: You can also give this page a date in the url. Something like
 			<a
