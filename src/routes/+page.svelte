@@ -36,15 +36,19 @@
 	);
 
 	$: selectedInterestingDate = interestingDates.find((date) => isSameDay(date.date, selectedDate));
+	$: sinceOrUntil = +daysUntilSelectedDate < 0 ? 'since' : 'until';
+	$: absoluteValueOfDaysUntil = Math.abs(+daysUntilSelectedDate);
+	$: absoluteValueOfBusinessDaysUntil = Math.abs(+businessDaysUntilSelectedDate);
 </script>
 
 <svelte:head>
 	<title
-		>Days Until {`${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}</title
+		>Days {sinceOrUntil}
+		{`${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}</title
 	>
 	<meta
 		name="description"
-		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
+		content={`Find out how many days ${sinceOrUntil} ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
 	/>
 	<link
 		rel="canonical"
@@ -57,11 +61,11 @@
 	/>
 	<meta
 		property="og:title"
-		content={`Days Until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}
+		content={`Days ${sinceOrUntil} ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}
 	/>
 	<meta
 		property="og:description"
-		content={`Find out how many days until ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
+		content={`Find out how many days ${sinceOrUntil} ${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted || 'a specific date'}. Or enter your target date and the display below will tell you how many days away your date is.`}
 	/>
 	<meta
 		property="og:image"
@@ -73,7 +77,18 @@
 </svelte:head>
 
 <div class="text-center">
-	<h1 class="py-2 text-3xl font-black lg:text-5xl">Days Until</h1>
+	<h1 class="py-2 text-3xl font-black lg:text-5xl grid gap-2">
+		<span>
+			Days {sinceOrUntil}
+		</span>
+		<span class="text-slate-600 font-bold">
+			{#if selectedInterestingDate}
+				{selectedInterestingDate.name}
+			{:else}
+				<span class="font-normal">{selectedDateFormatted}</span>
+			{/if}
+		</span>
+	</h1>
 	<p class="mx-auto mt-4 max-w-sm">
 		Enter your target date below and the display below will tell you how many days away your date
 		is. That&apos;s all there is it
@@ -85,7 +100,7 @@
 				<label for="date" class="block text-sm font-medium">Date</label>
 				<input
 					bind:value={selectedDay}
-					class="py-2 px-4 mx-auto bg-gray-50 border appearance-none"
+					class="py-2 px-4 mx-auto bg-slate-50 border appearance-none"
 					id="date"
 					type="date"
 				/>
@@ -135,8 +150,8 @@
 
 	<div class="grid-cols-2 mt-8 text-center sm:pt-12 lg:grid">
 		<div>
-			<div class="text-4xl">{daysUntilSelectedDate}</div>
-			<div class="text-lg">Days Until</div>
+			<div class="text-4xl">{absoluteValueOfDaysUntil}</div>
+			<div class="text-lg">Days {sinceOrUntil}</div>
 			<div class="text-sm">
 				{selectedDateFormatted}
 				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
@@ -144,9 +159,9 @@
 		</div>
 		<div class="mt-4 lg:mt-0">
 			<div class="text-4xl">
-				{businessDaysUntilSelectedDate}
+				{absoluteValueOfBusinessDaysUntil}
 			</div>
-			<div class="text-lg">Business Days Until</div>
+			<div class="text-lg">Business Days {sinceOrUntil}</div>
 			<div class="text-sm">{selectedDateFormatted}</div>
 		</div>
 	</div>
@@ -171,7 +186,7 @@
 	</div>
 
 	<div class="mx-auto mt-12 max-w-md">
-		<p class="text-sm text-center text-gray-800">
+		<p class="text-sm text-center text-slate-800">
 			FYI: You can also give this page a date in the url. Something like
 			<a
 				class="underline text-malibu-800"
@@ -189,18 +204,18 @@
 			<div class="mx-1 bg-white shadow sm:mb-4 sm:ml-4 sm:rounded-lg">
 				<div class="p-3 sm:p-4">
 					<div class="flex gap-4 justify-between items-start">
-						<h3 class="text-sm font-semibold leading-6 text-gray-900">Link copied</h3>
+						<h3 class="text-sm font-semibold leading-6 text-slate-900">Link copied</h3>
 						<button
 							on:click={() => {
 								toastVisible = false;
 								clearTimeout(toastTimeout);
 							}}
-							class="relative -top-2 -right-4 py-1 px-4 text-base text-gray-500 hover:text-gray-700"
+							class="relative -top-2 -right-4 py-1 px-4 text-base text-slate-500 hover:text-slate-700"
 						>
 							x
 						</button>
 					</div>
-					<div class="max-w-xl text-sm text-gray-500">
+					<div class="max-w-xl text-sm text-slate-500">
 						<p>A link to this date has been copied to your clipboard.</p>
 						<p>Share it with your friends</p>
 					</div>

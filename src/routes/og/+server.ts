@@ -35,23 +35,20 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 		differenceInCalendarDays(dateForSearchParam, new Date())
 	);
 
+	const absoluteValueOfDaysUntil = Math.abs(+daysUntil);
+
 	const template = `
-	 <div tw="flex flex-col w-full h-full items-center justify-center bg-gray-50" style="
+	 <div tw="flex flex-col w-full h-full items-center justify-center bg-slate-50" style="
 	 	background-color: #70e1f5;
 		background-image: linear-gradient(320deg, #70e1f5 0%, #fed194 100%);
 	 ">
-	  <div tw="flex w-full" style="width:540px">
+	  <div tw="flex w-full" style="width:720px">
 		<div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-around p-8">
-		  <h2 tw="flex flex-col text-5xl font-bold tracking-tight text-gray-900 items-center">
-			<span tx="font-bold">Days Until</span>
-			${dateIsInterestingDate ? `<span tw="mt-2 text-gray-800 text-4xl font-normal">${dateIsInterestingDate.name} </span>` : ''}
-			<span tw="mt-2 text-gray-800 text-3xl font-normal">${format(dateForSearchParam, displayDateFormatString)}</span>
+		  <h2 tw="flex flex-col text-7xl font-bold tracking-tight text-slate-900 items-center">
+			<span>${absoluteValueOfDaysUntil}&nbsp; Days ${+daysUntil < 0 ? 'Since' : 'Until'}</span>
+			${dateIsInterestingDate ? `<span tw="mt-2 mb-6 text-slate-800 text-5xl font-normal">${dateIsInterestingDate.name} </span>` : ''}
+			<span tw="mt-4 text-slate-800 text-4xl font-medium">${format(dateForSearchParam, displayDateFormatString)}</span>
 		  </h2>
-		  <h3 tw="flex text-7xl font-bold tracking-tight text-gray-900 items-center">
-			<span tx="font-black">${daysUntil}</span>
-			<span tw="text-gray-800 text-2xl font-normal ml-2 pt-8">days</span>
-		  </h3>
-
 		</div>
 	  </div>
 	</div>

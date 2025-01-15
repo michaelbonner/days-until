@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-	@apply bg-gray-100;
+	@apply bg-slate-100;
 	@apply bg-gradient-to-tl;
 	@apply from-malibu-500;
 	@apply to-pizazz-200;

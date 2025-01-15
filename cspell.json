@@ -3,7 +3,10 @@
 	"ignorePaths": [],
 	"dictionaryDefinitions": [],
 	"dictionaries": [],
-	"words": ["Juneteenth"],
+	"words": [
+		"ethercorps",
+		"Juneteenth"
+	],
 	"ignoreWords": [],
 	"import": []
 }

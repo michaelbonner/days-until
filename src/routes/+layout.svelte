@@ -10,7 +10,7 @@
 	</div>
 
 	<div>
-		<p class="pb-8 mt-12 text-sm text-center text-gray-800">
+		<p class="pb-8 mt-12 text-sm text-center text-slate-800">
 			&copy;2021-{new Date().getFullYear()}
 			<a class="underline" href="https://michaelbonner.dev"> Michael Bonner </a>
 		</p>
