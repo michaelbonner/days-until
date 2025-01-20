@@ -941,10 +941,6 @@ video {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
 .mx-6 {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -957,11 +953,11 @@ video {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.mt-1 {
-  margin-top: 0.25rem;
-}
 .mt-12 {
   margin-top: 3rem;
+}
+.mt-24 {
+  margin-top: 6rem;
 }
 .mt-4 {
   margin-top: 1rem;
@@ -969,17 +965,8 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
-.mt-16 {
-  margin-top: 4rem;
-}
-.mt-24 {
-  margin-top: 6rem;
-}
 .block {
   display: block;
-}
-.inline-block {
-  display: inline-block;
 }
 .flex {
   display: flex;
@@ -999,14 +986,14 @@ video {
 .max-w-3xl {
   max-width: 48rem;
 }
+.max-w-lg {
+  max-width: 32rem;
+}
 .max-w-md {
   max-width: 28rem;
 }
 .max-w-xl {
   max-width: 36rem;
-}
-.max-w-lg {
-  max-width: 32rem;
 }
 .appearance-none {
   -webkit-appearance: none;
@@ -1056,9 +1043,6 @@ video {
 .border {
   border-width: 1px;
 }
-.border-dashed {
-  border-style: dashed;
-}
 .border-malibu-300 {
   --tw-border-opacity: 1;
   border-color: rgb(207 245 252 / var(--tw-border-opacity, 1));
@@ -1094,9 +1078,9 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .py-1 {
   padding-top: 0.25rem;
@@ -1110,15 +1094,8 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
 .pb-8 {
   padding-bottom: 2rem;
-}
-.pt-4 {
-  padding-top: 1rem;
 }
 .pt-8 {
   padding-top: 2rem;
@@ -1128,9 +1105,6 @@ video {
 }
 .text-center {
   text-align: center;
-}
-.font-sans {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -1309,11 +1283,6 @@ html {
 
 @media (min-width: 1024px) {
 
-  .lg\:mx-12 {
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
-
   .lg\:mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -1325,14 +1294,6 @@ html {
 
   .lg\:mt-16 {
     margin-top: 4rem;
-  }
-
-  .lg\:flex {
-    display: flex;
-  }
-
-  .lg\:grid {
-    display: grid;
   }
 
   .lg\:min-h-screen {
@@ -1362,14 +1323,14 @@ html {
     padding-bottom: 2rem;
   }
 
-  .lg\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
   .lg\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
+  }
+
+  .lg\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
   }
 }
 
