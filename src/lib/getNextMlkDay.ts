@@ -1,4 +1,4 @@
-import { addDays, format, startOfWeek, startOfYear } from 'date-fns';
+import { addDays, format, isSameDay, startOfWeek, startOfYear } from 'date-fns';
 import type { InterestingDate } from './types/InterestingDate';
 
 export const getNextMlkDay = (currentDate: Date = new Date()): InterestingDate => {
@@ -10,7 +10,7 @@ export const getNextMlkDay = (currentDate: Date = new Date()): InterestingDate =
 			: addDays(startOfWeek(startOfYear(currentDate), { weekStartsOn: 1 }), 21);
 
 	// if the third monday is in the future, return it
-	if (thirdMonday > currentDate) {
+	if (thirdMonday > currentDate || isSameDay(thirdMonday, currentDate)) {
 		return {
 			monthDay: '',
 			name: 'MLK Day',
