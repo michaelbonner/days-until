@@ -13,10 +13,11 @@
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
+	let queryStringDateString = page.url.searchParams.get('date');
+
 	const queryStringDate =
-		page.url.searchParams.get('date') &&
-		isValid(parse(page.url.searchParams.get('date'), 'yyyy-MM-dd', new Date()))
-			? page.url.searchParams.get('date')
+		queryStringDateString && isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()))
+			? queryStringDateString
 			: '';
 
 	const interestingDates = getInterestingDates();
@@ -24,7 +25,8 @@
 	let toastVisible = $state(false);
 	let toastTimeout = $state(null);
 
-	let showInvalidDateAlert = $derived(page.url.searchParams.get('date') && !queryStringDate);
+	let showInvalidDateAlert =
+		queryStringDateString && !isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()));
 
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
@@ -45,6 +47,11 @@
 	const absoluteValueOfBusinessDaysUntil = $derived(
 		new Intl.NumberFormat().format(Math.abs(differenceInBusinessDays(selectedDate, today)))
 	);
+
+	const exampleQueryStringUrl = new URL(
+		typeof window !== 'undefined' ? window.location.href : 'https://days-until.michaelbonner.dev'
+	);
+	exampleQueryStringUrl.searchParams.set('date', '2050-01-01');
 </script>
 
 <svelte:head>
@@ -99,8 +106,8 @@
 		<div class="prose mx-auto mt-4 max-w-full p-4">
 			<div class="flex-1">
 				<p>
-					The date you passed in the url (<code>?date={page.url.searchParams.get('date')}</code>) is
-					not valid. Make sure you are passing dates in <code>yyyy-MM-dd</code> format
+					The date you passed in the url (<code>?date={queryStringDateString}</code>) is not valid.
+					Make sure you are passing dates in <code>yyyy-MM-dd</code> format
 				</p>
 			</div>
 			<div>
@@ -218,11 +225,16 @@
 	<div class="mx-auto mt-12 max-w-md prose">
 		<p class="text-sm text-center text-slate-800">
 			FYI: You can also give this page a date in the url. Something like
-			<a
+			<button
 				class="underline text-malibu-800"
-				href="https://days-until.michaelbonner.dev/?date=2050-01-01"
-				>https://days-until.michaelbonner.dev/?date=2050-01-01</a
+				onclick={() => {
+					goto(exampleQueryStringUrl.toString());
+					selectedDay = '2050-01-01';
+				}}
+				type="button"
 			>
+				{exampleQueryStringUrl.toString()}
+			</button>
 		</p>
 	</div>
 
