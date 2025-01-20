@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { getInterestingDates } from '$lib/getInterestingDates';
 	import {
 		differenceInBusinessDays,
@@ -12,7 +12,7 @@
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	const queryStringDate = $page.url.searchParams.get('date');
+	const queryStringDate = page.url.searchParams.get('date');
 
 	const interestingDates = getInterestingDates();
 
