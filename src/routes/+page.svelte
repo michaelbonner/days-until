@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { getInterestingDates } from '$lib/getInterestingDates';
 	import {
@@ -12,33 +13,38 @@
 	import { quintOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
 
-	const queryStringDate = page.url.searchParams.get('date');
+	const queryStringDate =
+		page.url.searchParams.get('date') &&
+		isValid(parse(page.url.searchParams.get('date'), 'yyyy-MM-dd', new Date()))
+			? page.url.searchParams.get('date')
+			: '';
 
 	const interestingDates = getInterestingDates();
 
-	let toastVisible = false;
-	let toastTimeout: any;
+	let toastVisible = $state(false);
+	let toastTimeout = $state(null);
+
+	let showInvalidDateAlert = $derived(page.url.searchParams.get('date') && !queryStringDate);
 
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
-	let selectedDay =
-		(queryStringDate as string) || (format(interestingDates[0].date, 'yyyy-MM-dd') as string);
-	$: selectedDate = parse(selectedDay, 'yyyy-MM-dd', new Date());
-	if (typeof window !== 'undefined' && !isValid(parse(selectedDay, 'yyyy-MM-dd', new Date()))) {
-		alert('Make sure you are passing dates as yyyy-MM-dd format');
-	}
-	$: selectedDateFormatted = format(selectedDate, 'MM/dd/yyyy');
-	$: daysUntilSelectedDate = new Intl.NumberFormat().format(
-		differenceInCalendarDays(selectedDate, today)
+	let selectedDay = $state(
+		(queryStringDate as string) || (format(interestingDates[0].date, 'yyyy-MM-dd') as string)
 	);
-	$: businessDaysUntilSelectedDate = new Intl.NumberFormat().format(
-		differenceInBusinessDays(selectedDate, today)
-	);
+	const selectedDate = $derived(parse(selectedDay, 'yyyy-MM-dd', new Date()));
+	const selectedDateFormatted = $derived(format(selectedDate, 'MM/dd/yyyy'));
+	const daysUntilSelectedDate = $derived(differenceInCalendarDays(selectedDate, today));
 
-	$: selectedInterestingDate = interestingDates.find((date) => isSameDay(date.date, selectedDate));
-	$: sinceOrUntil = +daysUntilSelectedDate < 0 ? 'since' : 'until';
-	$: absoluteValueOfDaysUntil = Math.abs(+daysUntilSelectedDate);
-	$: absoluteValueOfBusinessDaysUntil = Math.abs(+businessDaysUntilSelectedDate);
+	const selectedInterestingDate = $derived(
+		interestingDates.find((date) => isSameDay(date.date, selectedDate))
+	);
+	const sinceOrUntil = $derived(daysUntilSelectedDate < 0 ? 'since' : 'until');
+	const absoluteValueOfDaysUntil = $derived(
+		new Intl.NumberFormat().format(Math.abs(differenceInCalendarDays(selectedDate, today)))
+	);
+	const absoluteValueOfBusinessDaysUntil = $derived(
+		new Intl.NumberFormat().format(Math.abs(differenceInBusinessDays(selectedDate, today)))
+	);
 </script>
 
 <svelte:head>
@@ -89,6 +95,30 @@
 			{/if}
 		</span>
 	</h1>
+	{#if showInvalidDateAlert}
+		<div class="prose mx-auto mt-4 max-w-full p-4">
+			<div class="flex-1">
+				<p>
+					The date you passed in the url (<code>?date={page.url.searchParams.get('date')}</code>) is
+					not valid. Make sure you are passing dates in <code>yyyy-MM-dd</code> format
+				</p>
+			</div>
+			<div>
+				<p>
+					<button
+						class="text-sm border border-orange-500 rounded-lg px-3 py-1 text-orange-800 hover:text-orange-900 hover:bg-orange-50"
+						onclick={() => {
+							const url = new URL(window.location.href);
+							url.searchParams.delete('date');
+							goto(url.toString());
+						}}
+					>
+						Clear query date
+					</button>
+				</p>
+			</div>
+		</div>
+	{/if}
 	<p class="prose mx-auto mt-4 max-w-lg">
 		Enter your target date below and the display below will tell you how many days away your date
 		is. That&apos;s all there is to it.
@@ -130,7 +160,7 @@
 			<div class="flex justify-center">
 				<button
 					class="flex gap-1 justify-center items-center text-sm hover:underline"
-					on:click={() => {
+					onclick={() => {
 						const url = new URL(window.location.href);
 						url.searchParams.set('date', selectedDay);
 						navigator.clipboard.writeText(url.toString());
@@ -176,7 +206,7 @@
 							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
 							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
 					}`}
-					on:click={() => (selectedDay = interestingDate.formattedDate)}
+					onclick={() => (selectedDay = interestingDate.formattedDate)}
 				>
 					<span class="block font-light">{format(interestingDate.date, 'MM/dd/yyyy')}</span>
 					<span class="block font-medium">{interestingDate.name}</span>
@@ -206,7 +236,7 @@
 					<div class="flex gap-4 justify-between items-start">
 						<h3 class="text-sm font-semibold leading-6 text-slate-900">Link copied</h3>
 						<button
-							on:click={() => {
+							onclick={() => {
 								toastVisible = false;
 								clearTimeout(toastTimeout);
 							}}
