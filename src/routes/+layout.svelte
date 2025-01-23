@@ -4,7 +4,7 @@
 
 <div class="flex flex-col justify-center items-center px-4 lg:px-0 lg:min-h-screen ui-main-wrapper">
 	<div
-		class="py-4 px-6 my-4 mx-6 w-full max-w-3xl bg-white rounded-sm shadow-lg lg:py-8 lg:px-12 lg:mx-auto xl:py-12 xl:px-24"
+		class="py-4 px-6 my-4 mx-6 w-full max-w-3xl bg-white rounded-xs shadow-lg lg:py-8 lg:px-12 lg:mx-auto xl:py-12 xl:px-24"
 	>
 		<slot />
 	</div>
