@@ -243,7 +243,7 @@
 			class="fixed left-0 bottom-1 text-left sm:bottom-0"
 			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 		>
-			<div class="mx-1 bg-white shadow sm:mb-4 sm:ml-4 sm:rounded-lg">
+			<div class="mx-1 bg-white shadow-sm sm:mb-4 sm:ml-4 sm:rounded-lg">
 				<div class="p-3 sm:p-4">
 					<div class="flex gap-4 justify-between items-start">
 						<h3 class="text-sm font-semibold leading-6 text-slate-900">Link copied</h3>
