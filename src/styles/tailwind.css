@@ -3,29 +3,29 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --color-malibu-50: #f3f9fa;
-  --color-malibu-100: #eaf5f8;
-  --color-malibu-200: #e3f9fe;
-  --color-malibu-300: #cff5fc;
-  --color-malibu-400: #a0ebf8;
-  --color-malibu-500: #70e1f5;
-  --color-malibu-600: #40d7f2;
-  --color-malibu-700: #11cdee;
-  --color-malibu-800: #0da4bf;
-  --color-malibu-900: #0a7b8f;
-  --color-malibu: #70e1f5;
+	--color-malibu-50: #f3f9fa;
+	--color-malibu-100: #eaf5f8;
+	--color-malibu-200: #e3f9fe;
+	--color-malibu-300: #cff5fc;
+	--color-malibu-400: #a0ebf8;
+	--color-malibu-500: #70e1f5;
+	--color-malibu-600: #40d7f2;
+	--color-malibu-700: #11cdee;
+	--color-malibu-800: #0da4bf;
+	--color-malibu-900: #0a7b8f;
+	--color-malibu: #70e1f5;
 
-  --color-pizazz-50: #fff2e1;
-  --color-pizazz-100: #ffe7c7;
-  --color-pizazz-200: #ffd194;
-  --color-pizazz-300: #ffbb61;
-  --color-pizazz-400: #ffa62e;
-  --color-pizazz-500: #fa8f00;
-  --color-pizazz-600: #c77200;
-  --color-pizazz-700: #945500;
-  --color-pizazz-800: #613700;
-  --color-pizazz-900: #2e1a00;
-  --color-pizazz: #fa8f00;
+	--color-pizazz-50: #fff2e1;
+	--color-pizazz-100: #ffe7c7;
+	--color-pizazz-200: #ffd194;
+	--color-pizazz-300: #ffbb61;
+	--color-pizazz-400: #ffa62e;
+	--color-pizazz-500: #fa8f00;
+	--color-pizazz-600: #c77200;
+	--color-pizazz-700: #945500;
+	--color-pizazz-800: #613700;
+	--color-pizazz-900: #2e1a00;
+	--color-pizazz: #fa8f00;
 }
 
 /*
@@ -37,13 +37,13 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
 }
 
 html {

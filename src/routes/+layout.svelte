@@ -1,5 +1,5 @@
 <script>
-	import '../styles/tailwind-output.css';
+	import '../styles/tailwind.css';
 </script>
 
 <div class="flex flex-col justify-center items-center px-4 lg:px-0 lg:min-h-screen ui-main-wrapper">

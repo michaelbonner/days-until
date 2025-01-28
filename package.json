@@ -6,13 +6,9 @@
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write --plugin-search-dir=. .",
-		"dev:only": "vite dev",
-		"build:only": "vite build",
+		"dev": "vite dev",
+		"build": "vite build",
 		"preview": "vite preview",
-		"tailwind:watch": "cross-env TAILWIND_MODE=watch cross-env NODE_ENV=development postcss src/styles/tailwind.css -o src/styles/tailwind-output.css -w",
-		"tailwind:build": "cross-env TAILWIND_MODE=build cross-env NODE_ENV=production  postcss src/styles/tailwind.css -o src/styles/tailwind-output.css",
-		"dev": "concurrently \"npm run dev:only\" \"npm run tailwind:watch\"",
-		"build": "npm run tailwind:build && npm run build:only",
 		"test": "vitest"
 	},
 	"devDependencies": {
@@ -41,6 +37,7 @@
 	"dependencies": {
 		"@ethercorps/sveltekit-og": "^4.0.0-next.1",
 		"@sveltejs/adapter-vercel": "^5.5.2",
+		"@tailwindcss/vite": "^4.0.0",
 		"date-fns": "^4.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
 		"query-string": "^9.1.1"
