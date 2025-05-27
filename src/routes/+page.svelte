@@ -206,7 +206,7 @@
 	<div class="mt-12">
 		<h2 class="text-2xl">Interesting Dates</h2>
 		<div class="gap-x-2 gap-y-2 mt-4 sm:grid sm:grid-cols-3">
-			{#each interestingDates as interestingDate}
+			{#each interestingDates as interestingDate (interestingDate.date)}
 				<button
 					class={`m-0.5 sm:m-0 rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
 						selectedInterestingDate === interestingDate
