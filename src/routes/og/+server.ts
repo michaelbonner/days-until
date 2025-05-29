@@ -17,18 +17,18 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 	const interestingDates = getInterestingDates();
 
 	let searchParamDate =
-		url.searchParams.get('date') ?? format(interestingDates[0].date, 'yyyy-MM-dd');
+		url.searchParams.get('date') ?? format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd');
 
 	// if the search param is not a valid date, reset it
 	if (!searchParamDate.match(/^\d{4}-\d{2}-\d{2}$/)) {
-		searchParamDate = format(interestingDates[0].date, 'yyyy-MM-dd');
+		searchParamDate = format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd');
 	}
 
 	const dateForSearchParam = parse(searchParamDate, 'yyyy-MM-dd', new Date());
 
 	// is the searchParamDate in the interestingDates array?
 	const dateIsInterestingDate = interestingDates.find(
-		(date) => format(date.date, 'yyyy-MM-dd') === searchParamDate
+		(date) => date.date && format(date.date, 'yyyy-MM-dd') === searchParamDate
 	);
 
 	const daysUntil = new Intl.NumberFormat().format(
