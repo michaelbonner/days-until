@@ -2,15 +2,15 @@
 	import '../styles/tailwind.css';
 </script>
 
-<div class="flex flex-col justify-center items-center px-4 lg:px-0 lg:min-h-screen ui-main-wrapper">
+<div class="ui-main-wrapper flex flex-col items-center justify-center px-4 lg:min-h-screen lg:px-0">
 	<div
-		class="py-4 px-6 my-4 mx-6 w-full max-w-3xl bg-white rounded-xs shadow-lg lg:py-8 lg:px-12 lg:mx-auto xl:py-12 xl:px-24"
+		class="mx-6 my-4 w-full max-w-3xl rounded-xs bg-white px-6 py-4 shadow-lg lg:mx-auto lg:px-12 lg:py-8 xl:px-24 xl:py-12"
 	>
 		<slot />
 	</div>
 
 	<div class="prose">
-		<p class="pb-8 mt-12 text-sm text-center text-slate-800">
+		<p class="mt-12 pb-8 text-center text-sm text-slate-800">
 			&copy;2021-{new Date().getFullYear()}
 			<a class="underline" href="https://michaelbonner.dev"> Michael Bonner </a>
 		</p>

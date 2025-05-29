@@ -90,11 +90,11 @@
 </svelte:head>
 
 <div class="text-center">
-	<h1 class="py-2 text-3xl font-black lg:text-5xl grid gap-2">
+	<h1 class="grid gap-2 py-2 text-3xl font-black lg:text-5xl">
 		<span>
 			Days {sinceOrUntil}
 		</span>
-		<span class="text-slate-600 font-bold text-2xl lg:text-4xl">
+		<span class="text-2xl font-bold text-slate-600 lg:text-4xl">
 			{#if selectedInterestingDate}
 				{selectedInterestingDate.name}
 			{:else}
@@ -113,7 +113,7 @@
 			<div>
 				<p>
 					<button
-						class="text-sm border border-orange-500 rounded-lg px-3 py-1 text-orange-800 hover:text-orange-900 hover:bg-orange-50"
+						class="rounded-lg border border-orange-500 px-3 py-1 text-sm text-orange-800 hover:bg-orange-50 hover:text-orange-900"
 						onclick={() => {
 							const url = new URL(window.location.href);
 							url.searchParams.delete('date');
@@ -131,7 +131,7 @@
 		is. That&apos;s all there is to it.
 	</p>
 
-	<div class="grid-cols-2 text-center pt-8 sm:pt-12 grid gap-2 max-w-md mx-auto">
+	<div class="mx-auto grid max-w-md grid-cols-2 gap-2 pt-8 text-center sm:pt-12">
 		<div>
 			<div class="text-4xl">{absoluteValueOfDaysUntil}</div>
 			<div class="text-lg">Days {sinceOrUntil}</div>
@@ -152,13 +152,13 @@
 		</div>
 	</div>
 
-	<div class="justify-between items-center mt-24 lg:mt-16 flex lg:flex-wrap max-w-md mx-auto">
-		<div class="grid gap-2 mx-auto w-full text-center lg:w-1/2">
+	<div class="mx-auto mt-24 flex max-w-md items-center justify-between lg:mt-16 lg:flex-wrap">
+		<div class="mx-auto grid w-full gap-2 text-center lg:w-1/2">
 			<div class="grid gap-1">
 				<label for="date" class="block text-sm font-medium">Date</label>
 				<input
 					bind:value={selectedDay}
-					class="py-2 px-4 mx-auto bg-slate-50 border appearance-none"
+					class="mx-auto appearance-none border bg-slate-50 px-4 py-2"
 					id="date"
 					type="date"
 				/>
@@ -166,7 +166,7 @@
 
 			<div class="flex justify-center">
 				<button
-					class="flex gap-1 justify-center items-center text-sm hover:underline"
+					class="flex items-center justify-center gap-1 text-sm hover:underline"
 					onclick={() => {
 						const url = new URL(window.location.href);
 						url.searchParams.set('date', selectedDay);
@@ -179,7 +179,7 @@
 					}}
 				>
 					<svg
-						class="w-4 h-4"
+						class="h-4 w-4"
 						stroke="currentColor"
 						fill="none"
 						stroke-width="2"
@@ -205,10 +205,10 @@
 
 	<div class="mt-12">
 		<h2 class="text-2xl">Interesting Dates</h2>
-		<div class="gap-x-2 gap-y-2 mt-4 sm:grid sm:grid-cols-3">
+		<div class="mt-4 gap-x-2 gap-y-2 sm:grid sm:grid-cols-3">
 			{#each interestingDates as interestingDate (interestingDate.date)}
 				<button
-					class={`m-0.5 sm:m-0 rounded border py-2 px-3 text-xs tracking-wider uppercase transition-all hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 ${
+					class={`hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 m-0.5 rounded border px-3 py-2 text-xs tracking-wider uppercase transition-all sm:m-0 ${
 						selectedInterestingDate === interestingDate
 							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
 							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
@@ -222,11 +222,11 @@
 		</div>
 	</div>
 
-	<div class="mx-auto mt-12 max-w-md prose">
-		<p class="text-sm text-center text-slate-800">
+	<div class="prose mx-auto mt-12 max-w-md">
+		<p class="text-center text-sm text-slate-800">
 			FYI: You can also give this page a date in the url. Something like
 			<button
-				class="underline text-malibu-800"
+				class="text-malibu-800 underline"
 				onclick={() => {
 					goto(exampleQueryStringUrl.toString());
 					selectedDay = '2050-01-01';
@@ -240,19 +240,19 @@
 
 	{#if toastVisible}
 		<div
-			class="fixed left-0 bottom-1 text-left sm:bottom-0"
+			class="fixed bottom-1 left-0 text-left sm:bottom-0"
 			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
 		>
 			<div class="mx-1 bg-white shadow-sm sm:mb-4 sm:ml-4 sm:rounded-lg">
 				<div class="p-3 sm:p-4">
-					<div class="flex gap-4 justify-between items-start">
-						<h3 class="text-sm font-semibold leading-6 text-slate-900">Link copied</h3>
+					<div class="flex items-start justify-between gap-4">
+						<h3 class="text-sm leading-6 font-semibold text-slate-900">Link copied</h3>
 						<button
 							onclick={() => {
 								toastVisible = false;
 								clearTimeout(toastTimeout);
 							}}
-							class="relative -top-2 -right-4 py-1 px-4 text-base text-slate-500 hover:text-slate-700"
+							class="relative -top-2 -right-4 px-4 py-1 text-base text-slate-500 hover:text-slate-700"
 						>
 							x
 						</button>
