@@ -23,7 +23,7 @@
 	const interestingDates = getInterestingDates();
 
 	let toastVisible = $state(false);
-	let toastTimeout = $state(null);
+	let toastTimeout = $state<number | null>(null);
 
 	let showInvalidDateAlert =
 		queryStringDateString && !isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()));
@@ -31,14 +31,15 @@
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
 	let selectedDay = $state(
-		(queryStringDate as string) || (format(interestingDates[0].date, 'yyyy-MM-dd') as string)
+		(queryStringDate as string) ||
+			(format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd') as string)
 	);
 	const selectedDate = $derived(parse(selectedDay, 'yyyy-MM-dd', new Date()));
 	const selectedDateFormatted = $derived(format(selectedDate, 'MM/dd/yyyy'));
 	const daysUntilSelectedDate = $derived(differenceInCalendarDays(selectedDate, today));
 
 	const selectedInterestingDate = $derived(
-		interestingDates.find((date) => isSameDay(date.date, selectedDate))
+		interestingDates.find((date) => date.date && isSameDay(date.date, selectedDate))
 	);
 	const sinceOrUntil = $derived(daysUntilSelectedDate < 0 ? 'since' : 'until');
 	const absoluteValueOfDaysUntil = $derived(
@@ -213,9 +214,15 @@
 							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
 							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
 					}`}
-					onclick={() => (selectedDay = interestingDate.formattedDate)}
+					onclick={() => {
+						if (interestingDate.formattedDate) {
+							selectedDay = interestingDate.formattedDate;
+						}
+					}}
 				>
-					<span class="block font-light">{format(interestingDate.date, 'MM/dd/yyyy')}</span>
+					<span class="block font-light"
+						>{format(interestingDate.date ?? new Date(), 'MM/dd/yyyy')}</span
+					>
 					<span class="block font-medium">{interestingDate.name}</span>
 				</button>
 			{/each}
@@ -250,7 +257,7 @@
 						<button
 							onclick={() => {
 								toastVisible = false;
-								clearTimeout(toastTimeout);
+								toastTimeout && clearTimeout(toastTimeout);
 							}}
 							class="relative -top-2 -right-4 px-4 py-1 text-base text-slate-500 hover:text-slate-700"
 						>

@@ -44,11 +44,15 @@
 	::file-selector-button {
 		border-color: var(--color-gray-200, currentColor);
 	}
-}
 
-html {
-	@apply bg-slate-100;
-	@apply bg-linear-to-tl;
-	@apply from-malibu-500;
-	@apply to-pizazz-200;
+	html {
+		@apply bg-slate-100;
+		@apply bg-linear-to-tl;
+		@apply from-malibu-500;
+		@apply to-pizazz-200;
+	}
+
+	button {
+		@apply cursor-pointer;
+	}
 }
