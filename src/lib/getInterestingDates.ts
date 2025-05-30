@@ -3,6 +3,8 @@ import { getNextColumbusDay } from './getNextColumbusDay';
 import { getNextLaborDay } from './getNextLaborDay';
 import { getNextMemorialDay } from './getNextMemorialDay';
 import { getNextMlkDay } from './getNextMlkDay';
+import { getNextMothersDay } from './getNextMothersDay';
+import { getNextFathersDay } from './getNextFathersDay';
 import { getNextPresidentsDay } from './getNextPresidentsDay';
 import { getNextThanksgiving } from './getNextThanksgiving';
 
@@ -17,6 +19,8 @@ export const getInterestingDates = () => {
 		getInterestingDateByMonthDayString(`12-25`, `Christmas Day`),
 		getInterestingDateByMonthDayString(`12-31`, `New Years Eve`),
 		getNextPresidentsDay(),
+		getNextMothersDay(),
+		getNextFathersDay(),
 		getNextThanksgiving(),
 		getNextColumbusDay(),
 		getNextLaborDay(),
