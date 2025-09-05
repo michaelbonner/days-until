@@ -3,6 +3,10 @@ import type { InterestingDate } from './types/InterestingDate';
 
 const getHolidayForYear = (year: number): Date => {
 	const firstDayOfMonth = new Date(year, 8, 1);
+	if (firstDayOfMonth.getDay() === 1) {
+		return firstDayOfMonth;
+	}
+
 	const holiday = addDays(firstDayOfMonth, 8 - firstDayOfMonth.getDay());
 	return holiday;
 };
