@@ -7,7 +7,7 @@ const getHolidayForYear = (year: number): Date => {
 	return holiday;
 };
 
-export const getNextColumbusDay = (): InterestingDate => {
+export const getNextIndigenousPeoplesDay = (): InterestingDate => {
 	// 2nd monday in october
 
 	const holidayThisYear = getHolidayForYear(new Date().getFullYear());
@@ -19,7 +19,7 @@ export const getNextColumbusDay = (): InterestingDate => {
 
 	return {
 		monthDay: '',
-		name: 'Columbus Day',
+		name: 'Indigenous Peoples Day',
 		date: holiday,
 		formattedDate: format(holiday, 'yyyy-MM-dd')
 	};
