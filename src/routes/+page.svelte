@@ -118,6 +118,7 @@
 						onclick={() => {
 							const url = new URL(window.location.href);
 							url.searchParams.delete('date');
+							// eslint-disable-next-line svelte/no-navigation-without-resolve
 							goto(url.toString());
 						}}
 					>
@@ -174,9 +175,7 @@
 						navigator.clipboard.writeText(url.toString());
 						toastVisible = true;
 
-						toastTimeout = setTimeout(() => {
-							toastVisible = false;
-						}, 3000);
+						toastTimeout = setTimeout(() => (toastVisible = false), 3000);
 					}}
 				>
 					<svg
@@ -235,6 +234,7 @@
 			<button
 				class="text-malibu-800 underline"
 				onclick={() => {
+					// eslint-disable-next-line svelte/no-navigation-without-resolve
 					goto(exampleQueryStringUrl.toString());
 					selectedDay = '2050-01-01';
 				}}
@@ -257,7 +257,10 @@
 						<button
 							onclick={() => {
 								toastVisible = false;
-								toastTimeout && clearTimeout(toastTimeout);
+								if (toastTimeout) {
+									clearTimeout(toastTimeout);
+									toastTimeout = null;
+								}
 							}}
 							class="relative -top-2 -right-4 px-4 py-1 text-base text-slate-500 hover:text-slate-700"
 						>
