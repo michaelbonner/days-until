@@ -44,8 +44,8 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 	 ">
 	  <div tw="flex w-full" style="width:720px">
 		<div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-around p-8">
-		  <h2 tw="flex flex-col text-7xl font-bold tracking-tight text-slate-900 items-center">
-			<span>${absoluteValueOfDaysUntil}&nbsp; Days ${+daysUntil < 0 ? 'Since' : 'Until'}</span>
+		  <h2 tw="flex flex-col text-7xl tracking-tight text-slate-900 items-center">
+			<span>${absoluteValueOfDaysUntil} Days ${+daysUntil < 0 ? 'Since' : 'Until'}</span>
 			${dateIsInterestingDate ? `<span tw="mt-2 mb-6 text-slate-800 text-5xl font-normal">${dateIsInterestingDate.name} </span>` : ''}
 			<span tw="mt-4 text-slate-800 text-4xl font-medium">${format(dateForSearchParam, displayDateFormatString)}</span>
 		  </h2>
@@ -54,24 +54,20 @@ export const GET: RequestHandler = async ({ fetch, url }) => {
 	</div>
 	`;
 
-	return new ImageResponse(
-		template,
-		{
-			height: 400,
-			width: 800,
-			fonts: [
-				{
-					name: 'Inter',
-					data: fontData,
-					weight: 400
-				},
-				{
-					name: 'Inter',
-					data: fontDataBlack,
-					weight: 800
-				}
-			]
-		},
-		{ props: {} }
-	);
+	return new ImageResponse(template, {
+		height: 400,
+		width: 800,
+		fonts: [
+			{
+				name: 'Inter',
+				data: fontData,
+				weight: 400
+			},
+			{
+				name: 'Inter',
+				data: fontDataBlack,
+				weight: 800
+			}
+		]
+	});
 };
