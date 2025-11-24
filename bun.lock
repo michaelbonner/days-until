@@ -6,7 +6,7 @@
       "devDependencies": {
         "@eslint/compat": "^2.0.0",
         "@eslint/js": "^9.39.1",
-        "@ethercorps/sveltekit-og": "^4.1.0",
+        "@ethercorps/sveltekit-og": "^4.2.0",
         "@sveltejs/adapter-vercel": "^6.1.2",
         "@sveltejs/kit": "^2.49.0",
         "@sveltejs/vite-plugin-svelte": "^6.2.1",
@@ -103,7 +103,7 @@
 
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.4.1", "", { "dependencies": { "@eslint/core": "^0.17.0", "levn": "^0.4.1" } }, "sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA=="],
 
-    "@ethercorps/sveltekit-og": ["@ethercorps/sveltekit-og@4.1.0", "", { "dependencies": { "@resvg/resvg-wasm": "^2.6.2", "satori": "^0.10.14", "satori-html": "0.3.2", "std-env": "^3.9.0", "unwasm": "^0.5.0" }, "peerDependencies": { "@sveltejs/kit": ">=2.0.0" } }, "sha512-yonUbBXVMMMRW8S7RyYOBX0HjhO0FbxMcAM1p8XNSTBWMlD4FDtGo4gM4nli1bP3Bf3EAMJKVr5rmQI2Y2OFBg=="],
+    "@ethercorps/sveltekit-og": ["@ethercorps/sveltekit-og@4.2.0", "", { "dependencies": { "@resvg/resvg-wasm": "^2.6.2", "satori": "^0.10.14", "satori-html": "0.3.2", "std-env": "^3.9.0", "unwasm": "^0.5.0" }, "peerDependencies": { "@sveltejs/kit": ">=2.0.0" } }, "sha512-58fldA2XwdnIB7KFeDag7Tz670xADi5eAM/ZsYEKypKwkRX6qWmSxnR6tyR5AycjDqF4TnuG8N1FJ045+Ez7xg=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.1", "", {}, "sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA=="],
 
