@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { getInterestingDates } from '$lib/getInterestingDates';
@@ -23,7 +23,8 @@
 	const interestingDates = getInterestingDates();
 
 	let toastVisible = $state(false);
-	let toastTimeout = $state<number | null>(null);
+	/** @type {ReturnType<typeof setTimeout> | null} */
+	let toastTimeout = $state(null);
 
 	let showInvalidDateAlert =
 		queryStringDateString && !isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()));
@@ -31,8 +32,7 @@
 	const today = new Date();
 	const todayFormatted = format(today, 'MM/dd/yyyy');
 	let selectedDay = $state(
-		(queryStringDate as string) ||
-			(format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd') as string)
+		queryStringDate || format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd')
 	);
 	const selectedDate = $derived(parse(selectedDay, 'yyyy-MM-dd', new Date()));
 	const selectedDateFormatted = $derived(format(selectedDate, 'MM/dd/yyyy'));
