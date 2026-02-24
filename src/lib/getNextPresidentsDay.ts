@@ -3,7 +3,8 @@ import type { InterestingDate } from './types/InterestingDate';
 
 const getHolidayForYear = (year: number): Date => {
 	const firstDayOfMonth = new Date(year, 1, 1);
-	const holiday = addDays(firstDayOfMonth, 8 - firstDayOfMonth.getDay() + 14);
+	const daysUntilFirstMonday = (8 - firstDayOfMonth.getDay()) % 7;
+	const holiday = addDays(firstDayOfMonth, daysUntilFirstMonday + 14);
 	return holiday;
 };
 
