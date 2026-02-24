@@ -1,10 +1,7 @@
-<script lang="ts">
+<script>
 	import '../styles/tailwind.css';
-	interface Props {
-		children?: import('svelte').Snippet;
-	}
 
-	let { children }: Props = $props();
+	let { children } = $props();
 </script>
 
 <div class="ui-main-wrapper flex flex-col items-center justify-center px-4 lg:min-h-screen lg:px-0">
