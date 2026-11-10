@@ -35,6 +35,35 @@
 	const absoluteValueOfBusinessDaysUntil = $derived(
 		new Intl.NumberFormat().format(Math.abs(differenceInBusinessDays(selectedDate, today)))
 	);
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'WebSite',
+				'@id': 'https://days-until.michaelbonner.dev/#website',
+				name: 'Days Until',
+				url: 'https://days-until.michaelbonner.dev/',
+				inLanguage: 'en',
+				author: { '@type': 'Person', name: 'Michael Bonner', url: 'https://michaelbonner.dev' }
+			},
+			{
+				'@type': 'WebApplication',
+				'@id': 'https://days-until.michaelbonner.dev/#app',
+				name: 'Days Until',
+				url: 'https://days-until.michaelbonner.dev/',
+				description:
+					'Calculate calendar days and business days until or since a date, choose upcoming holidays, and share a countdown link.',
+				applicationCategory: 'UtilitiesApplication',
+				operatingSystem: 'Any',
+				isAccessibleForFree: true,
+				isPartOf: { '@id': 'https://days-until.michaelbonner.dev/#website' },
+				image: 'https://days-until.michaelbonner.dev/og-image.jpg',
+				author: { '@type': 'Person', name: 'Michael Bonner', url: 'https://michaelbonner.dev' }
+			}
+		]
+	};
+
+	const structuredDataScript = `<script type="application/ld+json">${JSON.stringify(structuredData).replace(/</g, '\\u003c')}</${'script'}>`;
 	let shareMessage = $state('');
 	/** @type {ReturnType<typeof setTimeout> | undefined} */
 	let shareTimeout;
@@ -53,6 +82,9 @@
 </script>
 
 <svelte:head>
+	<!-- JSON-LD contains only fixed application metadata, with HTML characters escaped. -->
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html structuredDataScript}
 	<title
 		>Days {sinceOrUntil}
 		{`${selectedInterestingDate ? selectedInterestingDate.name : selectedDateFormatted}`}</title
