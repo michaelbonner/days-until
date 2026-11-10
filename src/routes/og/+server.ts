@@ -1,4 +1,4 @@
-import { getInterestingDates } from '$lib/getInterestingDates';
+import { getInterestingDates } from '#lib/getInterestingDates.ts';
 import { ImageResponse } from '@ethercorps/sveltekit-og';
 import type { RequestHandler } from '@sveltejs/kit';
 import { differenceInCalendarDays, format, isValid, parse } from 'date-fns';

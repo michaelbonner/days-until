@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { getInterestingDates } from '$lib/getInterestingDates';
+	import { getInterestingDates } from '#lib/getInterestingDates.ts';
 	import {
 		differenceInBusinessDays,
 		differenceInCalendarDays,
