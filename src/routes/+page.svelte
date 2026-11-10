@@ -1,6 +1,6 @@
 <script>
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import { getInterestingDates } from '$lib/getInterestingDates';
 	import {
 		differenceInBusinessDays,
@@ -10,49 +10,46 @@
 		isValid,
 		parse
 	} from 'date-fns';
-	import { quintOut } from 'svelte/easing';
-	import { slide } from 'svelte/transition';
-
-	let queryStringDateString = page.url.searchParams.get('date');
-
-	const queryStringDate =
-		queryStringDateString && isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()))
-			? queryStringDateString
-			: '';
-
-	const interestingDates = getInterestingDates();
-
-	let toastVisible = $state(false);
-	/** @type {ReturnType<typeof setTimeout> | null} */
-	let toastTimeout = $state(null);
-
-	let showInvalidDateAlert =
-		queryStringDateString && !isValid(parse(queryStringDateString, 'yyyy-MM-dd', new Date()));
 
 	const today = new Date();
-	const todayFormatted = format(today, 'MM/dd/yyyy');
+	const interestingDates = getInterestingDates();
+	const queryStringDateString = page.url.searchParams.get('date');
+	const queryStringDate =
+		queryStringDateString && isValid(parse(queryStringDateString, 'yyyy-MM-dd', today))
+			? queryStringDateString
+			: '';
+	let showInvalidDateAlert = $state(Boolean(queryStringDateString && !queryStringDate));
 	let selectedDay = $state(
-		queryStringDate || format(interestingDates[0].date ?? new Date(), 'yyyy-MM-dd')
+		queryStringDate || format(interestingDates[0].date ?? today, 'yyyy-MM-dd')
 	);
-	const selectedDate = $derived(parse(selectedDay, 'yyyy-MM-dd', new Date()));
+	const selectedDate = $derived(parse(selectedDay, 'yyyy-MM-dd', today));
 	const selectedDateFormatted = $derived(format(selectedDate, 'MM/dd/yyyy'));
 	const daysUntilSelectedDate = $derived(differenceInCalendarDays(selectedDate, today));
-
 	const selectedInterestingDate = $derived(
 		interestingDates.find((date) => date.date && isSameDay(date.date, selectedDate))
 	);
 	const sinceOrUntil = $derived(daysUntilSelectedDate < 0 ? 'since' : 'until');
 	const absoluteValueOfDaysUntil = $derived(
-		new Intl.NumberFormat().format(Math.abs(differenceInCalendarDays(selectedDate, today)))
+		new Intl.NumberFormat().format(Math.abs(daysUntilSelectedDate))
 	);
 	const absoluteValueOfBusinessDaysUntil = $derived(
 		new Intl.NumberFormat().format(Math.abs(differenceInBusinessDays(selectedDate, today)))
 	);
-
-	const exampleQueryStringUrl = new URL(
-		typeof window !== 'undefined' ? window.location.href : 'https://days-until.michaelbonner.dev'
-	);
-	exampleQueryStringUrl.searchParams.set('date', '2050-01-01');
+	let shareMessage = $state('');
+	/** @type {ReturnType<typeof setTimeout> | undefined} */
+	let shareTimeout;
+	async function copyLink() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('date', selectedDay);
+		try {
+			await navigator.clipboard.writeText(url.toString());
+			shareMessage = 'Link copied.';
+		} catch {
+			shareMessage = 'Could not copy the link. Please try again.';
+		}
+		clearTimeout(shareTimeout);
+		shareTimeout = setTimeout(() => (shareMessage = ''), 4000);
+	}
 </script>
 
 <svelte:head>
@@ -90,189 +87,123 @@
 	<meta property="og:type" content="website" />
 </svelte:head>
 
-<div class="text-center">
-	<h1 class="grid gap-2 py-2 text-3xl font-black lg:text-5xl">
-		<span>
-			Days {sinceOrUntil}
-		</span>
-		<span class="text-2xl font-bold text-slate-600 lg:text-4xl">
-			{#if selectedInterestingDate}
-				{selectedInterestingDate.name}
-			{:else}
-				<span class="font-normal">{selectedDateFormatted}</span>
-			{/if}
-		</span>
-	</h1>
-	{#if showInvalidDateAlert}
-		<div class="prose mx-auto mt-4 max-w-full p-4">
-			<div class="flex-1">
-				<p>
-					The date you passed in the url (<code>?date={queryStringDateString}</code>) is not valid.
-					Make sure you are passing dates in <code>yyyy-MM-dd</code> format
-				</p>
-			</div>
-			<div>
-				<p>
-					<button
-						class="rounded-lg border border-orange-500 px-3 py-1 text-sm text-orange-800 hover:bg-orange-50 hover:text-orange-900"
-						onclick={() => {
-							const url = new URL(window.location.href);
-							url.searchParams.delete('date');
-							// eslint-disable-next-line svelte/no-navigation-without-resolve
-							goto(url.toString());
-						}}
-					>
-						Clear query date
-					</button>
-				</p>
-			</div>
-		</div>
-	{/if}
-	<p class="prose mx-auto mt-4 max-w-lg">
-		Enter your target date below and the display below will tell you how many days away your date
-		is. That&apos;s all there is to it.
-	</p>
-
-	<div class="mx-auto grid max-w-md grid-cols-2 gap-2 pt-8 text-center sm:pt-12">
-		<div>
-			<div class="text-4xl">{absoluteValueOfDaysUntil}</div>
-			<div class="text-lg">Days {sinceOrUntil}</div>
-			<div class="text-sm">
-				{selectedDateFormatted}
-				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
-			</div>
-		</div>
-		<div>
-			<div class="text-4xl">
-				{absoluteValueOfBusinessDaysUntil}
-			</div>
-			<div class="text-lg">Business Days {sinceOrUntil}</div>
-			<div class="text-sm">
-				{selectedDateFormatted}
-				{selectedInterestingDate ? `(${selectedInterestingDate?.name})` : ''}
-			</div>
-		</div>
-	</div>
-
-	<div class="mx-auto mt-24 flex max-w-md items-center justify-between lg:mt-16 lg:flex-wrap">
-		<div class="mx-auto grid w-full gap-2 text-center lg:w-1/2">
-			<div class="grid gap-1">
-				<label for="date" class="block text-sm font-medium">Date</label>
-				<input
-					bind:value={selectedDay}
-					class="mx-auto appearance-none border bg-slate-50 px-4 py-2"
-					id="date"
-					type="date"
-				/>
-			</div>
-
-			<div class="flex justify-center">
-				<button
-					class="flex items-center justify-center gap-1 text-sm hover:underline"
-					onclick={() => {
-						const url = new URL(window.location.href);
-						url.searchParams.set('date', selectedDay);
-						navigator.clipboard.writeText(url.toString());
-						toastVisible = true;
-
-						toastTimeout = setTimeout(() => (toastVisible = false), 3000);
-					}}
-				>
-					<svg
-						class="h-4 w-4"
-						stroke="currentColor"
-						fill="none"
-						stroke-width="2"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						height="200px"
-						width="200px"
-						xmlns="http://www.w3.org/2000/svg"
-						><path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-						></path></svg
-					>
-					Copy link
-				</button>
-			</div>
-		</div>
-		<div class="mx-auto mt-8 w-full text-center lg:mt-0 lg:w-1/2">
-			<p>Today&apos;s date is<br />{todayFormatted}</p>
-		</div>
-	</div>
-
-	<div class="mt-12">
-		<h2 class="text-2xl">Interesting Dates</h2>
-		<div class="mt-4 gap-x-2 gap-y-2 sm:grid sm:grid-cols-3">
-			{#each interestingDates as interestingDate (interestingDate.date)}
-				<button
-					class={`hover:bg-pizazz-200 hover:text-pizazz-700 hover:border-pizazz-300 m-0.5 rounded border px-3 py-2 text-xs tracking-wider uppercase transition-all sm:m-0 ${
-						selectedInterestingDate === interestingDate
-							? 'bg-pizazz-100 text-pizazz-800 border-pizazz-300'
-							: 'bg-malibu-200 text-malibu-900 border-malibu-300'
-					}`}
-					onclick={() => {
-						if (interestingDate.formattedDate) {
-							selectedDay = interestingDate.formattedDate;
-						}
-					}}
-				>
-					<span class="block font-light"
-						>{format(interestingDate.date ?? new Date(), 'MM/dd/yyyy')}</span
-					>
-					<span class="block font-medium">{interestingDate.name}</span>
-				</button>
-			{/each}
-		</div>
-	</div>
-
-	<div class="prose mx-auto mt-12 max-w-md">
-		<p class="text-center text-sm text-slate-800">
-			FYI: You can also give this page a date in the url. Something like
-			<button
-				class="text-malibu-800 underline"
-				onclick={() => {
-					// eslint-disable-next-line svelte/no-navigation-without-resolve
-					goto(exampleQueryStringUrl.toString());
-					selectedDay = '2050-01-01';
-				}}
-				type="button"
-			>
-				{exampleQueryStringUrl.toString()}
-			</button>
-		</p>
-	</div>
-
-	{#if toastVisible}
-		<div
-			class="fixed bottom-1 left-0 text-left sm:bottom-0"
-			transition:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
+<div class="site-shell">
+	<header class="site-header">
+		<a href={resolve('/')} class="wordmark" aria-label="Days Until home"
+			><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>days until<span
+				class="brand-dot">.</span
+			></a
 		>
-			<div class="mx-1 bg-white shadow-sm sm:mb-4 sm:ml-4 sm:rounded-lg">
-				<div class="p-3 sm:p-4">
-					<div class="flex items-start justify-between gap-4">
-						<h3 class="text-sm leading-6 font-semibold text-slate-900">Link copied</h3>
-						<button
-							onclick={() => {
-								toastVisible = false;
-								if (toastTimeout) {
-									clearTimeout(toastTimeout);
-									toastTimeout = null;
-								}
-							}}
-							class="relative -top-2 -right-4 px-4 py-1 text-base text-slate-500 hover:text-slate-700"
-						>
-							x
-						</button>
-					</div>
-					<div class="max-w-xl text-sm text-slate-500">
-						<p>A link to this date has been copied to your clipboard.</p>
-						<p>Share it with your friends</p>
-					</div>
+		<span class="today"><span class="status-dot"></span>{format(today, 'EEE, MMM d, yyyy')}</span>
+	</header>
+	<main>
+		{#if showInvalidDateAlert}
+			<div class="alert" role="alert">
+				That link has an invalid date. Try choosing a date below.<button
+					onclick={() => (showInvalidDateAlert = false)}
+					aria-label="Dismiss invalid date message">×</button
+				>
+			</div>
+		{/if}
+
+		<section class="countdown" aria-labelledby="countdown-title">
+			<div class="countdown-main">
+				<div class="card-top">
+					<h1 class="eyebrow" id="countdown-title">
+						<span class="status-dot"></span>YOUR COUNTDOWN
+					</h1>
+				</div>
+				<div class="count-number" aria-live="polite">
+					{absoluteValueOfDaysUntil}<span class="number-dot">.</span>
+				</div>
+				<div class="count-caption">
+					<span>{Math.abs(daysUntilSelectedDate) === 1 ? 'day' : 'days'} {sinceOrUntil}</span>
+					<h2>{selectedInterestingDate?.name || 'selected date'}</h2>
+				</div>
+				<div class="count-date">
+					<span class="small-calendar" aria-hidden="true">▦</span>{format(
+						selectedDate,
+						'EEEE, MMMM d, yyyy'
+					)}
 				</div>
 			</div>
-		</div>
-	{/if}
+			<div class="countdown-controls">
+				<div class="date-field">
+					<label for="date">Custom date</label><input
+						id="date"
+						type="date"
+						value={selectedDay}
+						onchange={(event) => {
+							if (
+								event.currentTarget.value &&
+								isValid(parse(event.currentTarget.value, 'yyyy-MM-dd', today))
+							)
+								selectedDay = event.currentTarget.value;
+						}}
+					/>
+				</div>
+				<div class="business-count">
+					<span class="business-number">{absoluteValueOfBusinessDaysUntil}</span>
+					<div>
+						<strong>business days {sinceOrUntil}</strong><span
+							>Monday–Friday, holidays included</span
+						>
+					</div>
+				</div>
+				<button class="share-button" onclick={copyLink}
+					><svg
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.7"
+						aria-hidden="true"
+						><path
+							d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-2 2M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l2-2"
+						/></svg
+					>Copy countdown link<span aria-hidden="true">↗</span></button
+				>
+			</div>
+		</section>
+		<section class="upcoming" aria-labelledby="upcoming-title">
+			<div class="section-heading">
+				<div>
+					<h2 id="upcoming-title">Upcoming dates</h2>
+				</div>
+			</div>
+			<div class="date-grid" id="upcoming-dates">
+				{#each interestingDates as interestingDate (interestingDate.name)}
+					<button
+						class="occasion"
+						class:active={selectedInterestingDate === interestingDate}
+						aria-pressed={selectedInterestingDate === interestingDate}
+						onclick={() => {
+							if (interestingDate.formattedDate) selectedDay = interestingDate.formattedDate;
+						}}
+					>
+						<span class="date-tile"
+							><span>{format(interestingDate.date ?? today, 'MMM')}</span><strong
+								>{format(interestingDate.date ?? today, 'dd')}</strong
+							></span
+						><span class="occasion-info"
+							><strong>{interestingDate.name}</strong><span
+								>{differenceInCalendarDays(interestingDate.date ?? today, today)} days away</span
+							></span
+						><span class="occasion-arrow" aria-hidden="true"
+							>{selectedInterestingDate === interestingDate ? '↗' : '→'}</span
+						>
+					</button>
+				{/each}
+			</div>
+		</section>
+	</main>
+	<footer>
+		<span
+			>By <a href="https://michaelbonner.dev">Michael Bonner</a><span class="footer-year"
+				>© {today.getFullYear()}</span
+			></span
+		>
+	</footer>
 </div>
+{#if shareMessage}<div class="toast" role="status">{shareMessage}</div>{/if}
